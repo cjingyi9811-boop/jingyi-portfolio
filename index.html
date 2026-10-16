@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jingyi CAO | Talent Management & Digital Learning</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Vue 3 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Cormorant Garamond + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              ivory: '#F7F3F0',
+              mist: '#D8D1D8',
+              aubergine: '#40323D',
+              mauve: '#897681',
+              espresso: '#241F21',
+              rosewood: '#A76F70',
+              gold: '#B79A67',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F7F3F0;
+      color: #241F21;
+    }
+    .card-clean {
+      background-color: #FFFFFF;
+      border: 1px solid rgba(64, 50, 61, 0.08);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-clean:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -15px rgba(64, 50, 61, 0.12);
+      border-color: rgba(167, 111, 112, 0.35);
+    }
+
+    /* 抽卡互动 3D 动画与堆叠层级 */
+    .deck-card {
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+    }
+    .deck-card.active {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #B79A67;
+      box-shadow: 0 16px 32px -8px rgba(64, 50, 61, 0.2);
+    }
+
+    /* 平滑呼吸光泽 */
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.03); }
+    }
+    .animate-subtle {
+      animation: pulse-subtle 3s ease-in-out infinite;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+
+<body class="selection:bg-brand-rosewood selection:text-white font-sans antialiased relative min-h-screen">
+  <div id="app" class="relative">
+    
+    <!-- 顶部导航栏 -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#F7F3F0]/90 backdrop-blur-md border-b border-brand-aubergine/5 px-6 sm:px-12 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="#about" class="font-serif tracking-widest text-lg sm:text-xl font-bold uppercase text-brand-aubergine hover:opacity-80 transition">
+          Jingyi CAO
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-medium tracking-wide uppercase text-brand-espresso/70">
+        <a href="#about" class="hover:text-brand-rosewood transition">{{ t.nav.about }}</a>
+        <a href="#metrics" class="hover:text-brand-rosewood transition">{{ t.nav.impact }}</a>
+        <a href="#projects" class="hover:text-brand-rosewood transition">{{ t.nav.projects }}</a>
+        <a href="#deck" class="hover:text-brand-rosewood transition">{{ t.nav.skills }}</a>
+        <a href="#life" class="hover:text-brand-rosewood transition">{{ t.nav.life }}</a>
+      </nav>
+
+      <!-- 语言切换开关 -->
+      <div class="flex items-center space-x-1 bg-brand-mist/40 p-1 rounded-full text-xs">
+        <button 
+          v-for="lang in ['FR', 'EN', 'ZH']" 
+          :key="lang"
+          @click="currentLang = lang"
+          :class="currentLang === lang ? 'bg-brand-aubergine text-white font-medium shadow-sm' : 'text-brand-espresso/60 hover:text-brand-espresso'"
+          class="px-2.5 py-1 rounded-full transition text-[11px]"
+        >
+          {{ lang }}
+        </button>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 sm:px-8 pt-32 pb-28 space-y-28">
+
+      <!-- HERO 区域 -->
+      <section id="about" class="pt-4">
+        <div class="bg-brand-aubergine text-brand-ivory rounded-[32px] p-8 sm:p-14 relative overflow-hidden shadow-xl shadow-brand-aubergine/10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+            <div class="lg:col-span-7 space-y-7">
+              <div class="w-12 h-[2px] bg-brand-gold"></div>
+
+              <div class="space-y-3">
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight leading-[1.1] text-white">
+                  {{ t.hero.titleLine1 }}<br />
+                  <span class="italic font-normal text-[#E8DCD5]">{{ t.hero.titleLine2 }}</span>
+                </h1>
+                <p class="text-xs uppercase tracking-widest text-brand-gold font-medium pt-1">
+                  HR • Talent Management • Digital Learning • Project Management
+                </p>
+              </div>
+
+              <p class="text-sm sm:text-base text-brand-ivory/80 font-light leading-relaxed max-w-xl">
+                {{ t.hero.bio }}
+              </p>
+
+              <div class="flex flex-wrap items-center gap-4 pt-2">
+                <a href="#projects" class="px-6 py-3 rounded-full bg-brand-rosewood text-white text-xs font-medium hover:bg-brand-rosewood/90 transition flex items-center space-x-2 shadow-md hover:scale-105 active:scale-95 duration-200">
+                  <span>{{ t.hero.btnJourney }}</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="mailto:cjingyi9811@gmail.com" class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-brand-ivory text-xs font-medium transition border border-white/10 hover:scale-105 active:scale-95 duration-200">
+                  {{ t.hero.btnContact }}
+                </a>
+              </div>
+            </div>
+
+            <!-- 右侧肖像 -->
+           <div class="lg:col-span-5 flex justify-center">
+  <div class="relative w-full max-w-xs sm:max-w-sm rounded-[28px] overflow-hidden bg-white/5 p-3 border border-white/10 shadow-2xl backdrop-blur-sm">
+    <div class="w-full h-80 sm:h-88 rounded-[20px] overflow-hidden bg-brand-mauve/30 flex items-center justify-center relative group p-6">
+      <img 
+        src="avatar.jpg" 
+        alt="Jingyi CAO" 
+        class="w-full h-full object-contain drop-shadow-xl transition duration-700 group-hover:scale-105" 
+        onerror="this.src='./images/avatar.jpg'" 
+      />
+    </div>
+  </div>
+</div>
+          </div>
+
+          <div class="absolute -bottom-10 -right-10 text-[180px] font-serif font-bold text-white/[0.02] select-none pointer-events-none">
+            CAO
+          </div>
+        </div>
+      </section>
+
+      <!-- 核心成果数据 (Metrics) -->
+      <section id="metrics" class="space-y-6">
+        <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
+          <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.metrics.tag }}</p>
+          <span class="text-xs text-brand-mauve font-serif italic">Measurable Impact</span>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div v-for="(metric, idx) in t.metrics.items" :key="idx" class="card-clean rounded-[20px] p-6 space-y-2">
+            <div class="font-serif text-3xl sm:text-4xl text-brand-aubergine font-semibold">
+              {{ metric.value }}
+            </div>
+            <div class="text-xs font-semibold text-brand-espresso">{{ metric.label }}</div>
+            <div class="text-[11px] text-brand-mauve font-light leading-relaxed">{{ metric.desc }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 代表作品 (Projects) -->
+      <section id="projects" class="space-y-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-brand-aubergine/10 pb-3">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.projects.tag }}</p>
+            <h2 class="font-serif text-3xl text-brand-aubergine font-normal mt-1">{{ t.projects.title }}</h2>
+          </div>
+          <div class="flex flex-wrap gap-1.5 bg-brand-mist/30 p-1 rounded-full text-xs">
+            <button 
+              v-for="cat in ['All', 'Digital Learning', 'Design & Events', 'Talent & Data']" 
+              :key="cat"
+              @click="activeCategory = cat"
+              :class="activeCategory === cat ? 'bg-brand-aubergine text-white font-medium' : 'text-brand-espresso/70 hover:text-brand-espresso'"
+              class="px-3.5 py-1 rounded-full transition text-[11px]"
+            >
+              {{ cat }}
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            v-for="(proj, idx) in filteredProjects" 
+            :key="idx" 
+            @click="openModal(proj)"
+            class="card-clean rounded-[24px] overflow-hidden cursor-pointer group flex flex-col justify-between"
+          >
+            <div>
+              <div class="h-48 bg-brand-mist/50 overflow-hidden relative">
+                <img :src="proj.cover" :alt="proj.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" @error="handleImgFallback" />
+                <span class="absolute top-3 left-3 px-3 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-semibold text-brand-aubergine tracking-wide">
+                  {{ proj.category }}
+                </span>
+                
+                <!-- 视频与媒体角标 -->
+                <div class="absolute bottom-3 right-3 flex items-center space-x-1.5">
+                  <span v-if="proj.videoUrl" class="px-2 py-0.5 rounded-md bg-brand-aubergine/80 text-brand-gold backdrop-blur-sm text-[10px] font-semibold flex items-center space-x-1">
+                    <i data-lucide="play" class="w-3 h-3 fill-current"></i>
+                    <span>Vidéo</span>
+                  </span>
+                  <span v-if="proj.images && proj.images.length > 1" class="px-2 py-0.5 rounded-md bg-brand-aubergine/70 text-white backdrop-blur-sm text-[10px] font-medium flex items-center space-x-1">
+                    <i data-lucide="images" class="w-3 h-3"></i>
+                    <span>{{ proj.images.length }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 space-y-2">
+                <p class="text-[10px] uppercase tracking-wider text-brand-rosewood font-bold">PROJECT</p>
+                <h3 class="font-serif text-lg font-bold text-brand-aubergine group-hover:text-brand-rosewood transition">{{ proj.title }}</h3>
+                <p class="text-xs text-brand-espresso/70 line-clamp-2 leading-relaxed font-light">{{ proj.summary }}</p>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-0 flex items-center justify-between text-xs text-brand-aubergine font-medium group-hover:text-brand-rosewood transition">
+              <span>{{ t.projects.viewCase }}</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 阶段 3 核心亮点：互动式能力抽卡档案 (Interactive Skill Deck - 还原视频精髓) -->
+      <section id="deck" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-brand-aubergine/10 pb-3">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.deck.tag }}</p>
+            <h2 class="font-serif text-3xl text-brand-aubergine font-normal mt-1">{{ t.deck.title }}</h2>
+          </div>
+          <p class="text-xs text-brand-mauve font-light">{{ t.deck.instruction }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- 左侧：3 张可抽取的立体档案卡片 -->
+          <div class="lg:col-span-5 space-y-3">
+            <div 
+              v-for="(card, idx) in t.deck.cards" 
+              :key="idx"
+              @click="selectedCardIndex = idx"
+              :class="selectedCardIndex === idx ? 'active bg-white ring-2 ring-brand-gold' : 'bg-white/70 hover:bg-white opacity-80 hover:opacity-100'"
+              class="deck-card rounded-[22px] p-5 border border-brand-aubergine/10 flex items-center justify-between group"
+            >
+              <div class="flex items-center space-x-4">
+                <div 
+                  :class="selectedCardIndex === idx ? 'bg-brand-rosewood text-white' : 'bg-brand-mist/40 text-brand-aubergine'"
+                  class="w-11 h-11 rounded-2xl flex items-center justify-center transition duration-300"
+                >
+                  <i :data-lucide="card.icon" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h4 class="font-serif text-base font-bold text-brand-aubergine group-hover:text-brand-rosewood transition">{{ card.title }}</h4>
+                  <p class="text-[11px] text-brand-mauve font-light">{{ card.subtitle }}</p>
+                </div>
+              </div>
+              <div class="w-7 h-7 rounded-full flex items-center justify-center text-brand-gold">
+                <i :data-lucide="selectedCardIndex === idx ? 'check-circle-2' : 'chevron-right'" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：抽出卡片的深度能力解析面板 -->
+          <div class="lg:col-span-7 bg-white rounded-[28px] p-8 border border-brand-aubergine/10 shadow-lg shadow-brand-aubergine/5 space-y-6">
+            <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-4">
+              <div>
+                <span class="text-[10px] font-bold text-brand-rosewood uppercase tracking-wider">COMPETENCE DOSSIER</span>
+                <h3 class="font-serif text-2xl font-bold text-brand-aubergine mt-0.5">
+                  {{ t.deck.cards[selectedCardIndex].title }}
+                </h3>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-brand-mist/30 text-brand-aubergine text-xs font-semibold">
+                Niveau Expert
+              </span>
+            </div>
+
+            <p class="text-xs sm:text-sm text-brand-espresso/80 font-light leading-relaxed">
+              {{ t.deck.cards[selectedCardIndex].detailedDesc }}
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <h5 class="text-[11px] font-bold uppercase tracking-wider text-brand-mauve">Impacts & Cas Pratiques</h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div v-for="(pt, pIdx) in t.deck.cards[selectedCardIndex].points" :key="pIdx" class="p-3 rounded-xl bg-brand-ivory/60 border border-brand-aubergine/5 text-xs text-brand-espresso/80 flex items-start space-x-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-rosewood mt-1.5 flex-shrink-0"></span>
+                  <span>{{ pt }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 核心能力理念卡片 (金句 + 4基石) -->
+      <section id="skills" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <div class="lg:col-span-5 bg-brand-mist/30 border border-brand-aubergine/10 rounded-[24px] p-8 flex flex-col justify-between space-y-6">
+            <span class="text-3xl font-serif text-brand-rosewood leading-none">“</span>
+            <p class="font-serif text-2xl sm:text-3xl italic text-brand-aubergine leading-snug">
+              {{ t.skills.quote }}
+            </p>
+            <div class="w-10 h-[2px] bg-brand-gold"></div>
+          </div>
+
+          <div class="lg:col-span-7 card-clean rounded-[24px] p-8 grid grid-cols-2 gap-6 items-center">
+            <div v-for="(cap, i) in t.skills.capabilities" :key="i" class="space-y-2 text-center p-3 rounded-2xl hover:bg-brand-ivory/50 transition">
+              <div class="w-9 h-9 mx-auto rounded-full bg-brand-rosewood/10 text-brand-rosewood flex items-center justify-center">
+                <i :data-lucide="cap.icon" class="w-4 h-4"></i>
+              </div>
+              <p class="text-xs font-semibold text-brand-aubergine">{{ cap.title }}</p>
+              <p class="text-[11px] text-brand-mauve font-light leading-relaxed">{{ cap.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 工作之外的生活 (Life Beyond Work) -->
+      <section id="life" class="space-y-6">
+        <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
+          <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.life.tag }}</p>
+          <span class="text-xs text-brand-mauve font-serif italic">Energy & Discipline</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div v-for="(item, idx) in t.life.items" :key="idx" class="card-clean rounded-[20px] p-3 space-y-2.5 group">
+            <div class="h-36 rounded-[14px] bg-brand-mist/50 overflow-hidden">
+              <img 
+                :src="item.image" 
+                :alt="item.name" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                @error="handleImgFallback"
+              />
+            </div>
+            <div class="px-1">
+              <p class="text-xs font-bold text-brand-aubergine">{{ item.name }}</p>
+              <p class="text-[11px] text-brand-mauve font-light">{{ item.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部 Footer -->
+      <footer class="pt-12 border-t border-brand-aubergine/10 text-center space-y-6">
+        <div class="space-y-2 max-w-md mx-auto">
+          <h3 class="font-serif text-2xl text-brand-aubergine font-semibold">{{ t.footer.title }}</h3>
+          <p class="text-xs text-brand-espresso/70 font-light leading-relaxed">{{ t.footer.desc }}</p>
+        </div>
+
+        <div class="flex justify-center items-center space-x-3 text-xs">
+          <a href="mailto:cjingyi9811@gmail.com" class="px-5 py-2.5 rounded-full bg-brand-aubergine text-white hover:bg-brand-rosewood transition shadow-sm font-medium">
+            cjingyi9811@gmail.com
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="px-5 py-2.5 rounded-full bg-white border border-brand-aubergine/15 text-brand-aubergine hover:border-brand-rosewood transition font-medium">
+            LinkedIn
+          </a>
+        </div>
+
+        <p class="text-[11px] text-brand-mauve font-light">© 2026 Jingyi CAO. Strategic clarity · Human warmth.</p>
+      </footer>
+
+    </main>
+
+    <!-- 阶段 3 互动特色：智能面试助手悬浮球 (Interactive AI Assistant Bubble) -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <!-- 气泡弹出窗体 -->
+      <div v-if="isAiOpen" class="mb-3 w-80 sm:w-96 bg-white rounded-[24px] p-5 border border-brand-aubergine/10 shadow-2xl space-y-4 animate-in fade-in zoom-in duration-200">
+        <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
+          <div class="flex items-center space-x-2">
+            <div class="w-7 h-7 rounded-full bg-brand-rosewood text-white flex items-center justify-center text-xs font-bold">
+              AI
+            </div>
+            <div>
+              <p class="text-xs font-bold text-brand-aubergine">Jingyi's Assistant</p>
+              <p class="text-[10px] text-emerald-600 font-medium">● En ligne</p>
+            </div>
+          </div>
+          <button @click="isAiOpen = false" class="text-brand-mauve hover:text-brand-aubergine text-xs p-1">✕</button>
+        </div>
+
+        <!-- 对话内容展示 -->
+        <div class="h-44 overflow-y-auto no-scrollbar space-y-3 text-xs pr-1">
+          <div class="p-3 rounded-2xl bg-brand-ivory text-brand-espresso/80 leading-relaxed font-light">
+            {{ t.ai.intro }}
+          </div>
+          <div v-if="aiAnswer" class="p-3 rounded-2xl bg-brand-aubergine text-brand-ivory leading-relaxed font-light">
+            {{ aiAnswer }}
+          </div>
+        </div>
+
+        <!-- 预设快捷提问按钮 -->
+        <div class="space-y-1.5 pt-1 border-t border-brand-aubergine/5">
+          <p class="text-[10px] font-bold text-brand-mauve uppercase tracking-wider">{{ t.ai.quickQuestions }}</p>
+          <div class="flex flex-col gap-1.5">
+            <button 
+              v-for="(q, qKey) in t.ai.questions" 
+              :key="qKey"
+              @click="askAi(qKey)"
+              class="w-full text-left px-3 py-1.5 rounded-xl bg-brand-mist/30 hover:bg-brand-rosewood hover:text-white transition text-[11px] text-brand-aubergine font-medium"
+            >
+              {{ q.text }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 悬浮唤醒圆形按钮 -->
+      <button 
+        @click="isAiOpen = !isAiOpen"
+        class="w-13 h-13 px-4 py-3.5 rounded-full bg-brand-aubergine text-white hover:bg-brand-rosewood transition shadow-xl flex items-center space-x-2.5 hover:scale-105 active:scale-95 duration-200"
+      >
+        <i :data-lucide="isAiOpen ? 'x' : 'sparkles'" class="w-4 h-4 text-brand-gold"></i>
+        <span class="text-xs font-semibold tracking-wide">Assistant</span>
+      </button>
+    </div>
+
+    <!-- 项目多媒体综合弹窗 -->
+    <div v-if="modalData" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-aubergine/65 backdrop-blur-sm" @click.self="closeModal">
+      <div class="bg-white rounded-[28px] max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative border border-brand-aubergine/10 max-h-[92vh] overflow-y-auto no-scrollbar">
+        <button @click="closeModal" class="absolute top-5 right-5 text-brand-mauve hover:text-brand-aubergine text-sm p-1 z-30">
+          ✕
+        </button>
+
+        <!-- 顶部媒体切换器 -->
+        <div v-if="modalData.videoUrl && modalData.images && modalData.images.length > 0" class="flex items-center space-x-2 bg-brand-mist/30 p-1 rounded-full w-max text-xs">
+          <button 
+            @click="mediaTab = 'video'" 
+            :class="mediaTab === 'video' ? 'bg-brand-aubergine text-white font-semibold' : 'text-brand-espresso/70 hover:text-brand-espresso'"
+            class="px-3.5 py-1 rounded-full transition flex items-center space-x-1.5"
+          >
+            <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+            <span>Vidéo Démo</span>
+          </button>
+          <button 
+            @click="mediaTab = 'gallery'" 
+            :class="mediaTab === 'gallery' ? 'bg-brand-aubergine text-white font-semibold' : 'text-brand-espresso/70 hover:text-brand-espresso'"
+            class="px-3.5 py-1 rounded-full transition flex items-center space-x-1.5"
+          >
+            <i data-lucide="image" class="w-3.5 h-3.5"></i>
+            <span>Galerie 2D ({{ modalData.images.length }})</span>
+          </button>
+        </div>
+
+        <!-- 媒体展示区 -->
+        <div class="space-y-3">
+          <!-- 视频播放模式 -->
+          <div v-if="mediaTab === 'video' && modalData.videoUrl" class="rounded-[20px] overflow-hidden bg-black aspect-video relative shadow-inner">
+            <video 
+              controls 
+              playsinline 
+              :poster="modalData.cover"
+              class="w-full h-full object-contain"
+            >
+              <source :src="modalData.videoUrl" type="video/mp4">
+              <source :src="'./images/' + modalData.videoUrl" type="video/mp4">
+              您的浏览器不支持该视频播放。
+            </video>
+          </div>
+
+          <!-- 图片画廊模式 -->
+          <div v-else class="space-y-3">
+            <div class="h-64 sm:h-72 rounded-[20px] overflow-hidden bg-brand-mist/30 flex items-center justify-center border border-brand-aubergine/5">
+              <img :src="currentSelectedImage || modalData.cover" class="w-full h-full object-contain" @error="handleImgFallback" />
+            </div>
+
+            <!-- 多图缩略图切换行 -->
+            <div v-if="modalData.images && modalData.images.length > 1" class="flex items-center space-x-2 overflow-x-auto py-1 no-scrollbar">
+              <button 
+                v-for="(img, idx) in modalData.images" 
+                :key="idx"
+                @click="currentSelectedImage = img"
+                :class="(currentSelectedImage || modalData.cover) === img ? 'ring-2 ring-brand-rosewood scale-95' : 'opacity-60 hover:opacity-100'"
+                class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-brand-aubergine/10 transition"
+              >
+                <img :src="img" class="w-full h-full object-cover" @error="handleImgFallback" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 标题与说明 -->
+        <div class="space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="text-[10px] font-bold text-brand-rosewood uppercase tracking-wider">{{ modalData.category }}</span>
+            
+            <a 
+              v-if="modalData.pdfUrl" 
+              :href="modalData.pdfUrl" 
+              target="_blank"
+              class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-brand-aubergine text-[11px] font-semibold text-white hover:bg-brand-rosewood transition shadow-sm"
+            >
+              <i data-lucide="file-down" class="w-3.5 h-3.5 text-brand-gold"></i>
+              <span>Consulter Game Design PDF</span>
+            </a>
+          </div>
+
+          <h3 class="font-serif text-2xl font-bold text-brand-aubergine">{{ modalData.title }}</h3>
+          <p class="text-xs text-brand-espresso/80 font-light leading-relaxed">{{ modalData.fullDesc }}</p>
+        </div>
+
+        <!-- 关键亮点 -->
+        <div class="space-y-2 pt-2 border-t border-brand-aubergine/10">
+          <h4 class="text-[11px] uppercase tracking-wider text-brand-mauve font-bold">Key Highlights & Competencies</h4>
+          <ul class="space-y-1.5 text-xs text-brand-espresso/80 font-light">
+            <li v-for="h in modalData.highlights" :key="h" class="flex items-center space-x-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-rosewood"></span>
+              <span>{{ h }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted, nextTick } = Vue;
+
+    createApp({
+      setup() {
+        const currentLang = ref('FR');
+        const activeCategory = ref('All');
+        const modalData = ref(null);
+        const currentSelectedImage = ref('');
+        const mediaTab = ref('video');
+        const selectedCardIndex = ref(0);
+        const isAiOpen = ref(false);
+        const aiAnswer = ref('');
+
+        const handleImgFallback = (e) => {
+          const originalSrc = e.target.getAttribute('src');
+          if (!originalSrc.startsWith('./images/') && !originalSrc.startsWith('images/')) {
+            e.target.src = './images/' + originalSrc;
+          } else if (originalSrc.endsWith('.jpg')) {
+            e.target.src = originalSrc.replace('.jpg', '.JPG');
+          } else if (originalSrc.endsWith('.png')) {
+            e.target.src = originalSrc.replace('.png', '.PNG');
+          }
+        };
+
+        const translations = {
+          FR: {
+            nav: { about: 'À propos', impact: 'Impact', projects: 'Projets', skills: 'Expertise', life: 'Vie & Énergie' },
+            hero: {
+              titleLine1: 'From people',
+              titleLine2: 'to lasting impact',
+              bio: 'Diplômée de SKEMA avec des expériences clés chez AXA France et Bank of China. Je relie stratégie RH, gouvernance des talents et ingénierie pédagogique innovante dans un contexte international trilingue.',
+              btnJourney: 'Découvrir mon parcours',
+              btnContact: 'Me contacter'
+            },
+            metrics: {
+              tag: 'MESURE D’IMPACT & PERFORMANCE',
+              items: [
+                { value: '~300', label: 'Talents & Cadres Dirigeants', desc: 'Revue annuelle et plans de développement consolidés' },
+                { value: '80 - 90', label: 'Nominations / an', desc: 'Coordination rigoureuse des comités de direction' },
+                { value: '93%', label: 'Taux de complétion', desc: 'Formation éthique et ESG déployée en 22 langues' },
+                { value: 'NPS 100', label: 'Programme Leadership', desc: 'Dispositif managérial pérennisé avec succès' }
+              ]
+            },
+            projects: {
+              tag: 'RÉALISATIONS STRATÉGIQUES',
+              title: 'Projets, Conception & Événements',
+              viewCase: 'Voir le projet'
+            },
+            deck: {
+              tag: 'DOSSIER INTERACTIF',
+              title: 'Explorez mes 3 piliers de compétences',
+              instruction: 'Cliquez sur une carte pour explorer l’impact opérationnel',
+              cards: [
+                {
+                  icon: 'users',
+                  title: 'Talent Governance & Leadership',
+                  subtitle: 'Gouvernance, comités et hauts potentiels',
+                  detailedDesc: 'Pilotage de bout en bout des revues de talents pour ~300 collaborateurs clés chez AXA France, coordination sous délais contraints des comités de nomination (80-90 passages annuels) et animation du programme de coaching interne.',
+                  points: [
+                    'Consolidation d’une base unique de besoins de formation et plans de succession',
+                    'Accompagnement de proximité des directeurs et HRBP',
+                    'Animation d’une communauté de 45 mentors et coachs internes',
+                    'NPS de 100 sur le programme Leadership déployé'
+                  ]
+                },
+                {
+                  icon: 'sparkles',
+                  title: 'Digital Learning & Serious Games',
+                  subtitle: 'Ingénierie ludo-pédagogique & outils auteurs',
+                  detailedDesc: 'Double compétence rare alliant conception pédagogique rigoureuse (GDD, synopsis) et direction artistique 2D. Capacité à modéliser des environnements immersifs pour des groupes internationaux (Kering) et des publics en intégration.',
+                  points: [
+                    'Maîtrise avancée des outils auteurs : VTS Editor & Articulate Storyline',
+                    'Scénarisation de formations conformité déployées en 22 langues (93% complétion)',
+                    'Gamification de parcours d’apprentissage pour stimuler l’engagement',
+                    'Déploiement et administration de plateformes LMS'
+                  ]
+                },
+                {
+                  icon: 'bar-chart-2',
+                  title: 'People Analytics & Automatisation RH',
+                  subtitle: 'Modélisation décisionnelle et droit social',
+                  detailedDesc: 'Valorisation des données RH pour éclairer les choix stratégiques de gouvernance. Création de modèles de tableaux de bord Power BI adoptés par l’ensemble des équipes et présentés aux dirigeants.',
+                  points: [
+                    'Conception de dashboards Power BI & Power Query pour les revues de talents',
+                    'Calcul et déclaration de l’Index égalité professionnelle (mixité)',
+                    'Digitalisation intégrale de 200 dossiers du personnel en 3 mois',
+                    'Solide rigueur en droit social, RGPD et relations CSE'
+                  ]
+                }
+              ]
+            },
+            skills: {
+              quote: 'People are the key to sustainable change.',
+              capabilities: [
+                { icon: 'users', title: 'Talent Development', desc: 'Revues de talents, comités & plans de succession' },
+                { icon: 'git-branch', title: 'Project Management', desc: 'Certifiée AgilePM & PRINCE2, pilotage transversal' },
+                { icon: 'sparkles', title: 'Digital Learning', desc: 'Ingénierie ludo-pédagogique & VTS / Storyline' },
+                { icon: 'bar-chart-2', title: 'People Analytics', desc: 'Modélisation Power BI & indicateurs de mixité' }
+              ]
+            },
+            life: {
+              tag: 'AU-DELÀ DU TRAVAIL',
+              items: [
+                { name: 'Escalade', desc: 'Focus & dépassement de soi', image: './images/escalade.jpg' },
+                { name: 'Calligraphie chinoise', desc: 'Précision & équilibre du geste', image: './images/poster-2.jpg' },
+                { name: 'Surf', desc: 'Agilité & lecture des vagues', image: './images/surfing.jpg' },
+                { name: 'Course à pied (10km)', desc: 'Endurance & régularité', image: './images/running.jpg' }
+              ]
+            },
+            ai: {
+              intro: 'Bonjour ! Je suis l’assistant virtuel de Jingyi CAO. Que souhaitez-vous découvrir sur son profil ?',
+              quickQuestions: 'Questions fréquentes :',
+              questions: {
+                skills: { text: 'Quelles sont ses compétences clés ?', answer: 'Jingyi combine 3 expertises : la gouvernance des talents (revues de talents, comités chez AXA France), l’ingénierie en Digital Learning (Serious Games, VTS Editor, Articulate) et les People Analytics sous Power BI.' },
+                axa: { text: 'Son impact chez AXA France ?', answer: 'Chez AXA France, Jingyi a préparé la revue annuelle pour ~300 talents et dirigeants, coordonné 80 à 90 nominations, créé le modèle de tableau de bord Power BI utilisé en comité et piloté le programme Leadership (NPS 100).' },
+                languages: { text: 'Quel est son niveau en langues ?', answer: 'Jingyi est parfaitement trilingue : Français (courant, certifié DALF C1), Anglais (professionnel) et Chinois (langue maternelle).' }
+              }
+            },
+            footer: {
+              title: 'Construisons ensemble la dynamique RH de demain',
+              desc: 'Ouverte aux opportunités en Talent Management, Cheffe de Projets RH & Digital Learning.'
+            }
+          },
+          EN: {
+            nav: { about: 'About', impact: 'Impact', projects: 'Projects', skills: 'Expertise', life: 'Life & Passions' },
+            hero: {
+              titleLine1: 'From people',
+              titleLine2: 'to lasting impact',
+              bio: 'SKEMA graduate with corporate track record at AXA France & Bank of China. Bridging strategy and people to build sustainable, high-performing organizations in a trilingual setting.',
+              btnJourney: 'Discover my journey',
+              btnContact: 'Get in touch'
+            },
+            metrics: {
+              tag: 'STRATEGIC CLARITY & IMPACT',
+              items: [
+                { value: '~300', label: 'Talents & Executives', desc: 'Consolidated annual reviews and growth roadmaps' },
+                { value: '80 - 90', label: 'Nominations / year', desc: 'End-to-end executive committee steering' },
+                { value: '93%', label: 'Completion Rate', desc: 'Global ethics & ESG module in 22 languages' },
+                { value: 'NPS 100', label: 'Leadership Cohort', desc: 'Pilot program institutionalized across promotions' }
+              ]
+            },
+            projects: {
+              tag: 'PORTFOLIO OF WORKS',
+              title: 'Strategic, Learning & Event Projects',
+              viewCase: 'View Project'
+            },
+            deck: {
+              tag: 'INTERACTIVE DOSSIER',
+              title: 'Explore My 3 Core Strategic Pillars',
+              instruction: 'Select a card to discover operational impact',
+              cards: [
+                {
+                  icon: 'users',
+                  title: 'Talent Governance & Leadership',
+                  subtitle: 'Governance, committees & executive cohorts',
+                  detailedDesc: 'Orchestrating end-to-end annual talent reviews for ~300 senior leaders at AXA France, coordinating 80-90 executive nominations under tight deadlines, and managing the internal coaching network.',
+                  points: [
+                    'Consolidated single source of truth for growth roadmaps',
+                    'Strategic advisory to senior HRBPs and executives',
+                    'Facilitated leadership cohort with a perfect NPS of 100',
+                    'Community management of 45 certified internal mentors'
+                  ]
+                },
+                {
+                  icon: 'sparkles',
+                  title: 'Digital Learning & Serious Games',
+                  subtitle: 'Instructional design & immersive authoring tools',
+                  detailedDesc: 'Rare dual capability combining instructional rigor (GDD, pedagogical scenarios) with original 2D art direction. Designing gamified experiences for multinational brands (Kering) and newcomers.',
+                  points: [
+                    'Advanced mastery of VTS Editor & Articulate Storyline',
+                    'Compliance modules rolled out in 22 languages (93% completion)',
+                    'Behavioral gamification boosting corporate training retention',
+                    'LMS platform launch and administrator enablement'
+                  ]
+                },
+                {
+                  icon: 'bar-chart-2',
+                  title: 'People Analytics & HR Digitalization',
+                  subtitle: 'Data modeling & labor law compliance',
+                  detailedDesc: 'Transforming complex HR metrics into executive-ready dashboards. Designed Power BI templates adopted across the entire Talent team for executive presentations.',
+                  points: [
+                    'Dynamic Power BI & Power Query talent review modeling',
+                    'Gender equality index reporting and analytics',
+                    'Full digitalization of 200 employee files in 3 months',
+                    'Solid foundation in French labor law, Works Council & GDPR'
+                  ]
+                }
+              ]
+            },
+            skills: {
+              quote: 'People are the key to sustainable change.',
+              capabilities: [
+                { icon: 'users', title: 'Talent Development', desc: 'Executive reviews, succession & nominations' },
+                { icon: 'git-branch', title: 'Project Management', desc: 'Certified AgilePM & PRINCE2 practitioner' },
+                { icon: 'sparkles', title: 'Digital Learning', desc: 'Immersive Serious Games & Storyline/VTS' },
+                { icon: 'bar-chart-2', title: 'People Analytics', desc: 'Power BI data models & gender balance KPIs' }
+              ]
+            },
+            life: {
+              tag: 'BEYOND WORK',
+              items: [
+                { name: 'Bouldering', desc: 'Problem solving & grit', image: './images/escalade.jpg' },
+                { name: 'Chinese Calligraphy', desc: 'Mindfulness & stroke balance', image: './images/poster-2.jpg' },
+                { name: 'Surfing', desc: 'Adaptability & ocean rhythm', image: './images/surfing.jpg' },
+                { name: 'Running (10km)', desc: 'Patience & long-term stamina', image: './images/running.jpg' }
+              ]
+            },
+            ai: {
+              intro: 'Hello! I am Jingyi CAO\'s portfolio assistant. What would you like to know about her background?',
+              quickQuestions: 'Quick inquiries:',
+              questions: {
+                skills: { text: 'What are her core competencies?', answer: 'Jingyi combines Talent Governance (executive reviews at AXA France), Digital Learning engineering (Serious Games, VTS Editor, Storyline), and People Analytics with Power BI.' },
+                axa: { text: 'Her contribution at AXA France?', answer: 'At AXA France, Jingyi coordinated annual reviews for ~300 executives, steered 80-90 nomination committees, engineered Power BI talent dashboards, and led the Leadership program (NPS 100).' },
+                languages: { text: 'What are her language proficiencies?', answer: 'Jingyi is fully trilingual: French (Fluent, DALF C1 certified), English (Professional working proficiency), and Mandarin Chinese (Native).' }
+              }
+            },
+            footer: {
+              title: 'Let\'s shape the future of Talent & Learning together',
+              desc: 'Open to opportunities in Talent Management, HR Projects & Digital Learning.'
+            }
+          },
+          ZH: {
+            nav: { about: '关于我', impact: '成果数据', projects: '代表作品', skills: '能力档案', life: '生活切片' },
+            hero: {
+              titleLine1: '以人为本',
+              titleLine2: '创造持久的组织影响力',
+              bio: '毕业于 SKEMA 商学院，拥有法国安盛 (AXA France) 与中国银行巴黎分行管理经验。深耕高管人才盘点、数字化学习工程与敏捷项目管理，以三语优势与数据洞察赋能组织成长。',
+              btnJourney: '探索我的成长轨迹',
+              btnContact: '联系我'
+            },
+            metrics: {
+              tag: '数据驱动与组织成效',
+              items: [
+                { value: '~300', label: '高潜与高管盘点', desc: '整合多方信息打造全集团单一数据源' },
+                { value: '80 - 90', label: '年度晋升提名', desc: '高压严控节点下统筹委员会全流程' },
+                { value: '93%', label: '培训完成率', desc: '开云集团全球 22 种语言合规培训' },
+                { value: 'NPS 100', label: '领导力发展计划', desc: '学员满分满意度，项目成功常态化' }
+              ]
+            },
+            projects: {
+              tag: '精选实践项目',
+              title: '数字化学习、视觉设计与活动统筹',
+              viewCase: '查看项目详情'
+            },
+            deck: {
+              tag: '动态能力抽卡档案',
+              title: '探索我的三大核心能力基石',
+              instruction: '点击左侧卡牌，抽取并查看实际大厂落地成果',
+              cards: [
+                {
+                  icon: 'users',
+                  title: '战略性高管人才盘点与领导力',
+                  subtitle: '委员会统筹、人才梯队与继任计划',
+                  detailedDesc: '在安盛法国 (AXA France) 全程统筹约 300 名高管与高潜人才的年度盘点，在严格的时间节点下保障 80 至 90 项干部晋升提名的委员会评审，并负责企业内部教练社区运营。',
+                  points: [
+                    '打通各业务线信息，构建全集团单一数据源',
+                    '与业务总监及 HRBP 紧密对话，精准提炼发展需求',
+                    '主导领导力项目实现 100 分满分学员 NPS 并获两期追加',
+                    '统筹 45 位内部导师网络的高效运转'
+                  ]
+                },
+                {
+                  icon: 'sparkles',
+                  title: '数字化学习工程与严肃游戏设计',
+                  subtitle: '教学架构、2D视觉原画与工具链',
+                  detailedDesc: '兼备严谨教学设计逻辑（GDD文档、剧本脚本）与原创视觉插画能力。为开云集团 (Kering) 等跨国大厂与初到法群体打造高黏性、游戏化的沉浸式学习产品。',
+                  points: [
+                    '精通 VTS Editor 与 Articulate Storyline 核心工具',
+                    '主导开云全球合规课程，覆盖 22 种语言并达成 93% 完课率',
+                    '通过情境模拟与关卡设计显著提升成人学习吸收率',
+                    '负责企业级 LMS 平台的上线、配置与讲师培训'
+                  ]
+                },
+                {
+                  icon: 'bar-chart-2',
+                  title: 'HR 数据分析建模与流程数字化',
+                  subtitle: 'Power BI 决策看板与法国劳动法合规',
+                  detailedDesc: '擅长将零散繁复的人事与人才数据转化为直观的可视化决策看板。在 AXA 独立搭建的 Power BI 模板被全体人才团队采纳并用于高管汇报。',
+                  points: [
+                    '运用 Power BI 与 Power Query 建立动态人才盘点模型',
+                    '负责职场性别平等指数 (Index égalité) 测算与合规分析',
+                    '仅用 3 个月实现 200 份员工档案的全面数字化',
+                    '严谨落实法国劳动法法规、员工关系与 CSE 沟通'
+                  ]
+                }
+              ]
+            },
+            skills: {
+              quote: '人，是一切可持续变革的基石。',
+              capabilities: [
+                { icon: 'users', title: '人才发展与管理', desc: '高管盘点、继任计划与提名委员会统筹' },
+                { icon: 'git-branch', title: '跨文化项目管理', desc: '持有 PRINCE2 与 AgilePM 专业认证' },
+                { icon: 'sparkles', title: '数字化学习工程', desc: '严肃游戏沉浸设计与 VTS / Storyline' },
+                { icon: 'bar-chart-2', title: 'HR 数据建模分析', desc: 'Power BI 决策看板与性别平等指数' }
+              ]
+            },
+            life: {
+              tag: '工作之外的生活美学',
+              items: [
+                { name: '攀岩', desc: '路线破局与身体掌控力', image: './images/escalade.jpg' },
+                { name: '毛笔书法', desc: '静心专注，提按起落间的结构之美', image: './images/poster-2.jpg' },
+                { name: '冲浪运动', desc: '随浪而动，敏锐的节奏感与平衡', image: './images/surfing.jpg' },
+                { name: '10公里长跑', desc: '长期主义，稳步前行的耐力基石', image: './images/running.jpg' }
+              ]
+            },
+            ai: {
+              intro: '你好！我是静仪作品集的专属 AI 助手。想了解关于静仪的哪些经历？',
+              quickQuestions: '快捷提问：',
+              questions: {
+                skills: { text: '静仪的核心专长是什么？', answer: '静仪兼具三大核心优势：安盛法国高管人才盘点与委员会治理、开云集团数字化严肃游戏设计（VTS / Storyline），以及基于 Power BI 的人力数据建模。' },
+                axa: { text: '她在安盛法国做出了哪些成果？', answer: '在 AXA France 期间，静仪统筹约 300 名高管盘点、负责 80-90 项年度晋升提名，搭建了全团队通用的 Power BI 盘点看板，并让领导力项目取得 100 分满分 NPS。' },
+                languages: { text: '她的语言能力如何？', answer: '静仪具备极为出色的三语流利度：法语（精通，持有 DALF C1 认证）、英语（专业工作水平）以及中文（母语）。' }
+              }
+            },
+            footer: {
+              title: '期待与你共同打造更具生命力的人才生态',
+              desc: '欢迎交流关于 Talent Management、数字化学习设计与 HR 项目管理的合作机会。'
+            }
+          }
+        };
+
+        const projectsData = [
+          {
+            title: "Un croissant s'il vous plaît",
+            category: "Digital Learning",
+            summary: "Jeu sérieux d'intégration culturelle et professionnelle en France pour jeunes adultes.",
+            fullDesc: "Conception complète du synopsis, Game Design Document (GDD), univers graphique original (personnages, carte) et scénarisation vidéo. Vous pouvez explorer la vidéo de démo, les 5 planches graphiques ou télécharger le GDD complet ci-dessus.",
+            cover: "croissant-poster.jpg",
+            videoUrl: "croissant-video.mp4",
+            pdfUrl: "croissant-design.pdf",
+            images: [
+              "croissant-1.jpg",
+              "croissant-2.jpg",
+              "croissant-3.jpg",
+              "croissant-4.jpg",
+              "croissant-5.jpg"
+            ],
+            highlights: [
+              "Scénarisation pédagogique complète et rédaction du GDD",
+              "Direction artistique originale : création de la carte et des avatars 2D",
+              "Animation et intégration d'une vidéo introductive immersive"
+            ]
+          },
+          {
+            title: "Micro-trottoir : Enquête Linguistique",
+            category: "Digital Learning",
+            summary: "Vidéo d'enquête de terrain et montage sur l'attractivité des langues étrangères auprès des étudiants.",
+            fullDesc: "Projet mené en équipe (Groupe JOJINGAU) : conception des questions d'enquête, réalisation d'interviews micro-trottoir sur le campus, montage dynamique et post-production.",
+            cover: "interview-poster.png",
+            videoUrl: "interview-video.mp4",
+            highlights: [
+              "Gestion de projet audiovisuel de bout en bout",
+              "Interviews qualitatives de terrain et recueil de données linguistiques",
+              "Montage vidéo dynamique et travail de mixage sonore"
+            ]
+          },
+          {
+            title: "Affiches Événementielles & Ateliers Culturels",
+            category: "Design & Events",
+            summary: "Conception graphique originale et animation d'ateliers d'immersion culturelle (Calligraphie & Mahjong).",
+            fullDesc: "Organisation complète et création de l'identité visuelle pour deux ateliers culturels immersifs : « Danse de l'Encre » (Initiation à la calligraphie chinoise) et « Mahjong & Mandarin » (Soirée ludique et linguistique).",
+            cover: "poster-1.jpg",
+            images: [
+              "poster-1.jpg",
+              "poster-2.jpg"
+            ],
+            highlights: [
+              "Direction artistique et conception d'affiches sous Canva / Suite créative",
+              "Coordination logistique, gestion des réservations et communication",
+              "Animation d'ateliers et transmission interculturelle auprès d'un public international"
+            ]
+          },
+          {
+            title: "Kering Ethics & Compliance E-Learning",
+            category: "Digital Learning",
+            summary: "Formation gamifiée sur l'éthique, les droits humains et la durabilité (ESG) pour un leader du luxe.",
+            fullDesc: "Intégration de contenus pédagogiques complexes et scénarisation d'une expérience immersive sur la transition durable déployée auprès de collaborateurs du monde entier.",
+            cover: "kering.jpg",
+            highlights: [
+              "Déploiement international en 22 langues",
+              "Taux de complétion record de 93%",
+              "Création de mockups immersifs pour orienter l'équipe graphique"
+            ]
+          },
+          {
+            title: "Simulateur Bancaire pour Nouveaux Arrivants",
+            category: "Digital Learning",
+            summary: "Serious Game interactif d'initiation au système bancaire français.",
+            fullDesc: "Mise en situation réaliste guidant l'apprenant à travers la préparation des pièces justificatives, la prise de rendez-vous et le premier retrait bancaire.",
+            cover: "banking-1.jpg",
+            images: [
+              "banking-1.jpg",
+              "banking-2.jpg"
+            ],
+            highlights: [
+              "Scénarios interactifs branchés à choix multiples",
+              "Graphisme immersif structuré par pièces de vie (salon, chambre)",
+              "Facilitation de l'autonomie administrative des primo-arrivants"
+            ]
+          },
+          {
+            title: "Certidev - Formations Hôtellerie & Restauration",
+            category: "Digital Learning",
+            summary: "Digitalisation et scénarisation des compétences métiers en restauration.",
+            fullDesc: "Création de modules immersifs pour la certification des crêpiers, commis de cuisine, pizzaïolos et réceptionnistes via des évaluations en situation 3D.",
+            cover: "certidev-1.jpg",
+            images: [
+              "certidev-1.jpg",
+              "certidev-2.jpg"
+            ],
+            highlights: [
+              "Mises en situation d'hygiène et sécurité alimentaire en cuisine",
+              "Digitalisation des tests de positionnement et barèmes d'évaluation",
+              "Simulations d'environnements professionnels et de gestion des stocks"
+            ]
+          },
+          {
+            title: "Power BI Talent Review Dashboard (AXA France)",
+            category: "Talent & Data",
+            summary: "Modèle décisionnel pour les revues annuelles de talents et cadres dirigeants.",
+            fullDesc: "Consolidation d'une base unique pour ~300 hauts potentiels, intégrant analyse de mixité prédictive, besoins de formation et plans de succession.",
+            cover: "revue.jpg",
+            highlights: [
+              "Adoption par l'ensemble de l'équipe Talents et utilisation en Comex",
+              "Modélisation Power Query avancée pour fiabiliser les flux de données",
+              "Indicateurs prédictifs de mixité et de représentativité managériale"
+            ]
+          }
+        ];
+
+        const t = computed(() => translations[currentLang.value]);
+
+        const filteredProjects = computed(() => {
+          if (activeCategory.value === 'All') return projectsData;
+          return projectsData.filter(p => p.category === activeCategory.value);
+        });
+
+        const openModal = (proj) => {
+          modalData.value = proj;
+          currentSelectedImage.value = proj.cover;
+          mediaTab.value = proj.videoUrl ? 'video' : 'gallery';
+          nextTick(() => {
+            lucide.createIcons();
+          });
+        };
+
+        const closeModal = () => {
+          modalData.value = null;
+          currentSelectedImage.value = '';
+          mediaTab.value = 'video';
+        };
+
+        const askAi = (key) => {
+          const qObj = t.value.ai.questions[key];
+          if (qObj) {
+            aiAnswer.value = qObj.answer;
+          }
+        };
+
+        onMounted(() => {
+          lucide.createIcons();
+        });
+
+        return {
+          currentLang,
+          activeCategory,
+          modalData,
+          currentSelectedImage,
+          mediaTab,
+          selectedCardIndex,
+          isAiOpen,
+          aiAnswer,
+          askAi,
+          handleImgFallback,
+          t,
+          filteredProjects,
+          openModal,
+          closeModal
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
