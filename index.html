@@ -166,7 +166,7 @@
                     src="avatar.jpg" 
                     alt="Jingyi CAO" 
                     class="w-full h-full object-contain drop-shadow-xl transition duration-700 group-hover:scale-105" 
-                    onerror="this.src='./images/avatar.jpg'" 
+                    onerror="this.src='./avatar.jpg'" 
                   />
                 </div>
               </div>
@@ -480,7 +480,7 @@
               class="w-full h-full object-contain"
             >
               <source :src="modalData.videoUrl" type="video/mp4">
-              <source :src="'./images/' + modalData.videoUrl" type="video/mp4">
+              <source :src="'./' + modalData.videoUrl" type="video/mp4">
               您的浏览器不支持该视频播放。
             </video>
           </div>
@@ -553,8 +553,8 @@
 
         const handleImgFallback = (e) => {
           const originalSrc = e.target.getAttribute('src');
-          if (!originalSrc.startsWith('./images/') && !originalSrc.startsWith('images/')) {
-            e.target.src = './images/' + originalSrc;
+          if (!originalSrc.startsWith('./') && !originalSrc.startsWith('images/')) {
+            e.target.src = './' + originalSrc;
           } else if (originalSrc.endsWith('.jpg')) {
             e.target.src = originalSrc.replace('.jpg', '.JPG');
           } else if (originalSrc.endsWith('.png')) {
@@ -641,10 +641,10 @@
             life: {
               tag: 'AU-DELÀ DU TRAVAIL',
               items: [
-                { name: 'Escalade', desc: 'Focus & dépassement de soi', image: './images/escalade.jpg' },
-                { name: 'Calligraphie chinoise', desc: 'Précision & équilibre du geste', image: './images/poster-2.jpg' },
-                { name: 'Surf', desc: 'Agilité & lecture des vagues', image: './images/surfing.jpg' },
-                { name: 'Course à pied (10km)', desc: 'Endurance & régularité', image: './images/running.jpg' }
+                { name: 'Escalade', desc: 'Focus & dépassement de soi', image: './escalade.jpg' },
+                { name: 'Calligraphie chinoise', desc: 'Précision & équilibre du geste', image: './poster-2.jpg' },
+                { name: 'Surf', desc: 'Agilité & lecture des vagues', image: './surfing.jpg' },
+                { name: 'Course à pied (10km)', desc: 'Endurance & régularité', image: './running.jpg' }
               ]
             },
             ai: {
@@ -739,10 +739,10 @@
             life: {
               tag: 'BEYOND WORK',
               items: [
-                { name: 'Bouldering', desc: 'Problem solving & grit', image: './images/escalade.jpg' },
-                { name: 'Chinese Calligraphy', desc: 'Mindfulness & stroke balance', image: './images/poster-2.jpg' },
-                { name: 'Surfing', desc: 'Adaptability & ocean rhythm', image: './images/surfing.jpg' },
-                { name: 'Running (10km)', desc: 'Patience & long-term stamina', image: './images/running.jpg' }
+                { name: 'Bouldering', desc: 'Problem solving & grit', image: './escalade.jpg' },
+                { name: 'Chinese Calligraphy', desc: 'Mindfulness & stroke balance', image: './poster-2.jpg' },
+                { name: 'Surfing', desc: 'Adaptability & ocean rhythm', image: './surfing.jpg' },
+                { name: 'Running (10km)', desc: 'Patience & long-term stamina', image: './running.jpg' }
               ]
             },
             ai: {
@@ -837,10 +837,10 @@
             life: {
               tag: '工作之外的生活美学',
               items: [
-                { name: '攀岩', desc: '路线破局与身体掌控力', image: './images/escalade.jpg' },
-                { name: '毛笔书法', desc: '静心专注，提按起落间的结构之美', image: './images/poster-2.jpg' },
-                { name: '冲浪运动', desc: '随浪而动，敏锐的节奏感与平衡', image: './images/surfing.jpg' },
-                { name: '10公里长跑', desc: '长期主义，稳步前行的耐力基石', image: './images/running.jpg' }
+                { name: '攀岩', desc: '路线破局与身体掌控力', image: './escalade.jpg' },
+                { name: '毛笔书法', desc: '静心专注，提按起落间的结构之美', image: './poster-2.jpg' },
+                { name: '冲浪运动', desc: '随浪而动，敏锐的节奏感与平衡', image: './surfing.jpg' },
+                { name: '10公里长跑', desc: '长期主义，稳步前行的耐力基石', image: './running.jpg' }
               ]
             },
             ai: {
@@ -865,15 +865,15 @@
             category: "Digital Learning",
             summary: "Jeu sérieux d'intégration culturelle et professionnelle en France pour jeunes adultes.",
             fullDesc: "Conception complète du synopsis, Game Design Document (GDD), univers graphique original (personnages, carte) et scénarisation vidéo. Vous pouvez explorer la vidéo de démo, les 5 planches graphiques ou télécharger le GDD complet ci-dessus.",
-            cover: "./images/croissant-poster.jpg",
-            videoUrl: "./images/croissant-video.mp4",
-            pdfUrl: "./images/croissant-design.pdf",
+            cover: "./croissant-poster.jpg",
+            videoUrl: "./croissant-video.mp4",
+            pdfUrl: "./croissant-design.pdf",
             images: [
-              "./images/croissant-1.jpg",
-              "./images/croissant-2.jpg",
-              "./images/croissant-3.jpg",
-              "./images/croissant-4.jpg",
-              "./images/croissant-5.jpg"
+              "./croissant-1.jpg",
+              "./croissant-2.jpg",
+              "./croissant-3.jpg",
+              "./croissant-4.jpg",
+              "./croissant-5.jpg"
             ],
             highlights: [
               "Scénarisation pédagogique complète et rédaction du GDD",
@@ -886,8 +886,8 @@
             category: "Digital Learning",
             summary: "Vidéo d'enquête de terrain et montage sur l'attractivité des langues étrangères auprès des étudiants.",
             fullDesc: "Projet mené en équipe (Groupe JOJINGAU) : conception des questions d'enquête, réalisation d'interviews micro-trottoir sur le campus, montage dynamique et post-production.",
-            cover: "./images/interview-poster.png",
-            videoUrl: "./images/interview-video.mp4",
+            cover: "./interview-poster.png",
+            videoUrl: "./interview-video.mp4",
             highlights: [
               "Gestion de projet audiovisuel de bout en bout",
               "Interviews qualitatives de terrain et recueil de données linguistiques",
@@ -899,10 +899,10 @@
             category: "Design & Events",
             summary: "Conception graphique originale et animation d'ateliers d'immersion culturelle (Calligraphie & Mahjong).",
             fullDesc: "Organisation complète et création de l'identité visuelle pour deux ateliers culturels immersifs : « Danse de l'Encre » (Initiation à la calligraphie chinoise) et « Mahjong & Mandarin » (Soirée ludique et linguistique).",
-            cover: "./images/poster-1.jpg",
+            cover: "./poster-1.jpg",
             images: [
-              "./images/poster-1.jpg",
-              "./images/poster-2.jpg"
+              "./poster-1.jpg",
+              "./poster-2.jpg"
             ],
             highlights: [
               "Direction artistique et conception d'affiches sous Canva / Suite créative",
@@ -915,7 +915,7 @@
             category: "Digital Learning",
             summary: "Formation gamifiée sur l'éthique, les droits humains et la durabilité (ESG) pour un leader du luxe.",
             fullDesc: "Intégration de contenus pédagogiques complexes et scénarisation d'une expérience immersive sur la transition durable déployée auprès de collaborateurs du monde entier.",
-            cover: "./images/kering.jpg",
+            cover: "./kering.jpg",
             highlights: [
               "Déploiement international en 22 langues",
               "Taux de complétion record de 93%",
@@ -927,10 +927,10 @@
             category: "Digital Learning",
             summary: "Serious Game interactif d'initiation au système bancaire français.",
             fullDesc: "Mise en situation réaliste guidant l'apprenant à travers la préparation des pièces justificatives, la prise de rendez-vous et le premier retrait bancaire.",
-            cover: "./images/banking-1.jpg",
+            cover: "./banking-1.jpg",
             images: [
-              "./images/banking-1.jpg",
-              "./images/banking-2.jpg"
+              "./banking-1.jpg",
+              "./banking-2.jpg"
             ],
             highlights: [
               "Scénarios interactifs branchés à choix multiples",
@@ -943,10 +943,10 @@
             category: "Digital Learning",
             summary: "Digitalisation et scénarisation des compétences métiers en restauration.",
             fullDesc: "Création de modules immersifs pour la certification des crêpiers, commis de cuisine, pizzaïolos et réceptionnistes via des évaluations en situation 3D.",
-            cover: "./images/certidev-1.jpg",
+            cover: "./certidev-1.jpg",
             images: [
-              "./images/certidev-1.jpg",
-              "./images/certidev-2.jpg"
+              "./certidev-1.jpg",
+              "./certidev-2.jpg"
             ],
             highlights: [
               "Mises en situation d'hygiène et sécurité alimentaire en cuisine",
@@ -959,7 +959,7 @@
             category: "Talent & Data",
             summary: "Modèle décisionnel pour les revues annuelles de talents et cadres dirigeants.",
             fullDesc: "Consolidation d'une base unique pour ~300 hauts potentiels, intégrant analyse de mixité prédictive, besoins de formation et plans de succession.",
-            cover: "./images/revue.jpg",
+            cover: "./revue.jpg",
             highlights: [
               "Adoption par l'ensemble de l'équipe Talents et utilisation en Comex",
               "Modélisation Power Query avancée pour fiabiliser les flux de données",
