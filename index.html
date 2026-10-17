@@ -108,17 +108,17 @@
       </nav>
 
       <!-- 语言切换开关 -->
-      <div class="flex items-center space-x-1 bg-brand-mist/40 p-1 rounded-full text-xs">
-        <button 
-          v-for="lang in ['FR', 'EN', 'ZH']" 
-          :key="lang"
-          @click="currentLang = lang"
-          :class="currentLang === lang ? 'bg-brand-aubergine text-white font-medium shadow-sm' : 'text-brand-espresso/60 hover:text-brand-espresso'"
-          class="px-2.5 py-1 rounded-full transition text-[11px]"
-        >
-          {{ lang }}
-        </button>
-      </div>
+<div class="flex items-center space-x-1 bg-brand-mist/40 p-1 rounded-full text-xs">
+  <button 
+    v-for="l in [{ code: 'FR', label: 'FR' }, { code: 'EN', label: 'EN' }, { code: 'ZH', label: '中文' }]" 
+    :key="l.code"
+    @click="currentLang = l.code"
+    :class="currentLang === l.code ? 'bg-brand-aubergine text-white font-medium shadow-sm' : 'text-brand-espresso/60 hover:text-brand-espresso'"
+    class="px-2.5 py-1 rounded-full transition text-[11px]"
+  >
+    {{ l.label }}
+  </button>
+</div>
     </header>
 
     <main class="max-w-6xl mx-auto px-6 sm:px-8 pt-32 pb-28 space-y-36">
