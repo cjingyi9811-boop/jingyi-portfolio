@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jingyi CAO | Talent Management, Employee Relations & Digital Learning</title>
+  <title>Jingyi CAO | Talent Management & Digital Learning</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Vue 3 -->
@@ -55,7 +55,7 @@
       border-color: rgba(167, 111, 112, 0.35);
     }
 
-    /* 类似 Minimal Gallery 的滚动分幕淡入动效 (Reveal-on-scroll) */
+    /* 滚动分幕淡入动效 */
     .reveal-item {
       opacity: 0;
       transform: translateY(32px);
@@ -102,6 +102,7 @@
         <a href="#metrics" class="hover:text-brand-rosewood transition">{{ t.nav.impact }}</a>
         <a href="#projects" class="hover:text-brand-rosewood transition">{{ t.nav.projects }}</a>
         <a href="#deck" class="hover:text-brand-rosewood transition">{{ t.nav.skills }}</a>
+        <a href="#testimonials" class="hover:text-brand-rosewood transition">{{ t.nav.testimonials }}</a>
         <a href="#life" class="hover:text-brand-rosewood transition">{{ t.nav.life }}</a>
         <a href="#contact" class="hover:text-brand-rosewood transition">{{ t.nav.contact }}</a>
       </nav>
@@ -122,7 +123,7 @@
 
     <main class="max-w-6xl mx-auto px-6 sm:px-8 pt-32 pb-28 space-y-36">
 
-      <!-- HERO 区域 (带直接可点击联系超链接) -->
+      <!-- HERO 区域：回归第一版优雅与战略高度 -->
       <section id="about" class="pt-4 reveal-item">
         <div class="bg-brand-aubergine text-brand-ivory rounded-[32px] p-8 sm:p-14 relative overflow-hidden shadow-2xl shadow-brand-aubergine/10">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
@@ -135,7 +136,7 @@
                   <span class="italic font-normal text-[#E8DCD5]">{{ t.hero.titleLine2 }}</span>
                 </h1>
                 <p class="text-xs uppercase tracking-widest text-brand-gold font-medium pt-1">
-                  Employee Relations • Droit du Travail • Talent Management • Digital Learning
+                  Talent Management • Digital Learning • Relations Sociales
                 </p>
               </div>
 
@@ -143,14 +144,13 @@
                 {{ t.hero.bio }}
               </p>
 
-              <!-- 快捷行动入口：支持直接发邮件、打电话与浏览项目 -->
+              <!-- 快捷行动入口 -->
               <div class="flex flex-wrap items-center gap-4 pt-2">
                 <a href="#projects" class="px-6 py-3 rounded-full bg-brand-rosewood text-white text-xs font-medium hover:bg-brand-rosewood/90 transition flex items-center space-x-2 shadow-md hover:scale-105 active:scale-95 duration-200">
                   <span>{{ t.hero.btnJourney }}</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </a>
                 
-                <!-- 直接联系超链接：点击直接唤起系统邮件并预设邮件主题 -->
                 <a 
                   href="mailto:cjingyi9811@gmail.com?subject=Contact%20via%20Portfolio%20-%20Jingyi%20CAO" 
                   class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-brand-ivory text-xs font-medium transition border border-white/10 hover:scale-105 active:scale-95 duration-200 flex items-center space-x-2"
@@ -159,7 +159,6 @@
                   <span>{{ t.hero.btnContact }}</span>
                 </a>
 
-                <!-- 电话直接拨打超链接 -->
                 <a 
                   href="tel:+33699018160" 
                   class="px-4 py-3 rounded-full bg-white/5 hover:bg-white/10 text-brand-ivory/80 hover:text-white text-xs font-medium transition border border-white/5 flex items-center space-x-1.5"
@@ -171,7 +170,7 @@
               </div>
             </div>
 
-            <!-- 右侧肖像 (缩小并透出优雅背景留白) -->
+            <!-- 右侧肖像 -->
             <div class="lg:col-span-5 flex justify-center">
               <div class="relative w-full max-w-xs sm:max-w-sm rounded-[28px] overflow-hidden bg-white/5 p-3 border border-white/10 shadow-2xl backdrop-blur-sm">
                 <div class="w-full h-80 sm:h-88 rounded-[20px] overflow-hidden bg-brand-mauve/30 flex items-center justify-center relative group p-6">
@@ -192,7 +191,7 @@
         </div>
       </section>
 
-      <!-- 核心成果数据 (Section 2 - 分幕滑动渐现) -->
+      <!-- 核心成果数据 (Section 2) -->
       <section id="metrics" class="space-y-6 reveal-item">
         <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
           <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.metrics.tag }}</p>
@@ -210,7 +209,7 @@
         </div>
       </section>
 
-      <!-- 代表作品 (Section 3 - 分幕滑动渐现) -->
+      <!-- 代表作品 (Section 3) -->
       <section id="projects" class="space-y-8 reveal-item">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-brand-aubergine/10 pb-3">
           <div>
@@ -271,7 +270,7 @@
         </div>
       </section>
 
-      <!-- 动态能力抽卡档案 (Section 4 - 全新升级为 4 个核心支柱，包含劳动法与法律合规监控) -->
+      <!-- 动态能力抽卡档案 (Section 4) -->
       <section id="deck" class="space-y-6 reveal-item">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-brand-aubergine/10 pb-3">
           <div>
@@ -282,7 +281,6 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <!-- 左侧：4 张可抽取的立体档案卡片 -->
           <div class="lg:col-span-5 space-y-3">
             <div 
               v-for="(card, idx) in t.deck.cards" 
@@ -309,7 +307,6 @@
             </div>
           </div>
 
-          <!-- 右侧：抽出卡片的深度能力解析面板 -->
           <div class="lg:col-span-7 bg-white rounded-[28px] p-6 sm:p-8 border border-brand-aubergine/10 shadow-lg shadow-brand-aubergine/5 space-y-6">
             <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-4">
               <div>
@@ -340,7 +337,50 @@
         </div>
       </section>
 
-      <!-- 核心能力理念卡片 (Section 5) -->
+      <!-- 新增：LinkedIn 匿名同事推荐语录 (Section 5 - Recommendations) -->
+      <section id="testimonials" class="space-y-6 reveal-item">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-brand-aubergine/10 pb-3">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.testimonials.tag }}</p>
+            <h2 class="font-serif text-3xl text-brand-aubergine font-normal mt-1">{{ t.testimonials.title }}</h2>
+          </div>
+          <a 
+            href="https://linkedin.com/in/jingyi-cao98" 
+            target="_blank" 
+            class="text-xs text-brand-rosewood hover:underline flex items-center space-x-1"
+          >
+            <span>{{ t.testimonials.viewAllLinkedIn }}</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div 
+            v-for="(testi, tIdx) in t.testimonials.items" 
+            :key="tIdx"
+            class="card-clean rounded-[24px] p-6 flex flex-col justify-between space-y-5 relative"
+          >
+            <div class="space-y-3">
+              <span class="text-2xl font-serif text-brand-rosewood leading-none block">“</span>
+              <p class="font-serif text-base text-brand-aubergine italic leading-relaxed">
+                {{ testi.quote }}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-brand-aubergine/10 flex items-center justify-between">
+              <div>
+                <p class="text-xs font-bold text-brand-espresso">{{ testi.authorTitle }}</p>
+                <p class="text-[10px] text-brand-mauve font-light mt-0.5">{{ testi.context }}</p>
+              </div>
+              <div class="w-6 h-6 rounded-full bg-brand-mist/30 flex items-center justify-center text-[#0A66C2]">
+                <i data-lucide="linkedin" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 核心能力理念卡片 (Section 6) -->
       <section id="skills" class="space-y-6 reveal-item">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           <div class="lg:col-span-5 bg-brand-mist/30 border border-brand-aubergine/10 rounded-[24px] p-8 flex flex-col justify-between space-y-6">
@@ -363,7 +403,7 @@
         </div>
       </section>
 
-      <!-- 工作之外的生活 (Section 6 - 全部采用根目录稳妥路径) -->
+      <!-- 工作之外的生活 (Section 7) -->
       <section id="life" class="space-y-6 reveal-item">
         <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
           <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.life.tag }}</p>
@@ -377,7 +417,7 @@
                 :src="item.image" 
                 :alt="item.name" 
                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
-                @error="handleImgFallback"
+                @error="handleImgFallback" 
               />
             </div>
             <div class="px-1">
@@ -388,14 +428,13 @@
         </div>
       </section>
 
-      <!-- 底部 Contact 模块与链接集成 (Section 7) -->
+      <!-- 底部 Contact 模块 (Section 8) -->
       <footer id="contact" class="pt-16 border-t border-brand-aubergine/10 text-center space-y-8 reveal-item">
         <div class="space-y-2 max-w-md mx-auto">
           <h3 class="font-serif text-3xl text-brand-aubergine font-semibold">{{ t.footer.title }}</h3>
           <p class="text-xs text-brand-espresso/70 font-light leading-relaxed">{{ t.footer.desc }}</p>
         </div>
 
-        <!-- 完整的直接联系方式矩阵（点击直接发送或跳转） -->
         <div class="flex flex-wrap justify-center items-center gap-3 text-xs">
           <a 
             href="mailto:cjingyi9811@gmail.com" 
@@ -584,7 +623,6 @@
         const isAiOpen = ref(false);
         const aiAnswer = ref('');
 
-        // 全自动容错降级：优先找当前根目录文件，找不到再找 images/，找不到再转大写
         const handleImgFallback = (e) => {
           const originalSrc = e.target.getAttribute('src') || '';
           if (originalSrc.startsWith('./images/')) {
@@ -600,11 +638,11 @@
 
         const translations = {
           FR: {
-            nav: { about: 'À propos', impact: 'Impact', projects: 'Projets', skills: 'Expertise', life: 'Vie & Énergie', contact: 'Contact' },
+            nav: { about: 'À propos', impact: 'Impact', projects: 'Projets', skills: 'Expertise', testimonials: 'Recommandations', life: 'Vie & Énergie', contact: 'Contact' },
             hero: {
               titleLine1: 'From people',
               titleLine2: 'to lasting impact',
-              bio: 'Professionnelle RH trilingue alliant maîtrise opérationnelle du droit du travail français (relations sociales, conformité, contentieux) et gestion stratégique des talents (revues de talents, comités de direction) dans des environnements internationaux exigeants.',
+              bio: 'Diplômée de SKEMA avec des expériences clés chez AXA France et Bank of China. Je relie stratégie RH, gouvernance des talents et ingénierie pédagogique innovante dans un contexte international trilingue.',
               btnJourney: 'Découvrir mon parcours',
               btnContact: 'Me contacter'
             },
@@ -613,7 +651,7 @@
               items: [
                 { value: '~300', label: 'Talents & Cadres Dirigeants', desc: 'Revue annuelle et plans de développement consolidés' },
                 { value: '80 - 90', label: 'Nominations / an', desc: 'Coordination rigoureuse des comités de direction' },
-                { value: '100%', label: 'Conformité & Sécurisation', desc: 'Enquêtes internes, gestion des contentieux et CSE' },
+                { value: '93%', label: 'Taux de complétion', desc: 'Formation éthique et ESG déployée en 22 langues' },
                 { value: 'NPS 100', label: 'Programme Leadership', desc: 'Dispositif managérial pérennisé avec succès' }
               ]
             },
@@ -627,18 +665,6 @@
               title: 'Explorez mes 4 piliers de compétences',
               instruction: 'Cliquez sur une carte pour explorer l’impact opérationnel',
               cards: [
-                {
-                  icon: 'scale',
-                  title: 'Droit du Travail & Veille Juridique',
-                  subtitle: 'Relations sociales, sécurisation juridique & CSE',
-                  detailedDesc: 'Pilotage de bout en bout des situations RH sensibles et complexes au sein d’une banque de 200 collaborateurs : enquêtes internes fact-finding avec avocats spécialisés, sécurisation de prise d\'acte (litige évité), ruptures conventionnelles, inaptitude et réorganisation (fusion de 5 directions en 3 sans licenciement). Veille réglementaire active et mise en conformité des politiques RH.',
-                  points: [
-                    'Gestion d\'enquêtes internes, avertissements disciplinaires et prises d\'acte',
-                    'Organisation des réunions d\'information-consultation du CSE',
-                    'Veille juridique continue et refonte du Règlement Intérieur (FR/EN/ZH)',
-                    'Pilotage de l’Index Égalité Professionnelle et conformité bancaire'
-                  ]
-                },
                 {
                   icon: 'users',
                   title: 'Talent Governance & Leadership',
@@ -664,6 +690,18 @@
                   ]
                 },
                 {
+                  icon: 'scale',
+                  title: 'Droit du Travail & Veille Juridique',
+                  subtitle: 'Relations sociales, sécurisation juridique & CSE',
+                  detailedDesc: 'Pilotage de bout en bout des situations RH sensibles au sein d’une banque de 200 collaborateurs : enquêtes internes fact-finding avec avocats spécialisés, sécurisation de prise d\'acte (litige évité), ruptures conventionnelles, inaptitude et réorganisation (fusion de 5 directions en 3 sans licenciement). Veille réglementaire active et mise en conformité des politiques RH.',
+                  points: [
+                    'Gestion d\'enquêtes internes, avertissements disciplinaires et prises d\'acte',
+                    'Organisation des réunions d\'information-consultation du CSE',
+                    'Veille juridique continue et refonte du Règlement Intérieur (FR/EN/ZH)',
+                    'Pilotage de l’Index Égalité Professionnelle et conformité bancaire'
+                  ]
+                },
+                {
                   icon: 'bar-chart-2',
                   title: 'People Analytics & Automatisation RH',
                   subtitle: 'Modélisation décisionnelle et SIRH',
@@ -677,13 +715,35 @@
                 }
               ]
             },
+            testimonials: {
+              tag: 'RECOMMANDATIONS PROFESSIONNELLES',
+              title: 'Ce que mes responsables disent de moi',
+              viewAllLinkedIn: 'Voir tous les avis sur LinkedIn',
+              items: [
+                {
+                  quote: '“Jingyi est intervenue sur plusieurs projets clés avec un niveau de sérieux et de rigueur exemplaire. Elle a su faire preuve de curiosité intellectuelle en prenant de la hauteur sur les missions qui lui étaient confiées.”',
+                  authorTitle: 'Senior HR Manager / Labor Law',
+                  context: 'Responsable directe chez Bank of China'
+                },
+                {
+                  quote: '“She consistently impressed me with her sharp logical thinking. Jingyi goes far beyond mere project execution: she embodies the modern HR professional with sound judgment and is a true problem-solver.”',
+                  authorTitle: 'HR Director & Talent Acquisition',
+                  context: 'Manager direct • Recrutement & ER'
+                },
+                {
+                  quote: '“Cette collaboration s’est inscrite dans des projets nécessitant une organisation structurée, le respect des échéances et un suivi rigoureux. Je recommande vivement Jingyi pour contribuer à des projets exigeants.”',
+                  authorTitle: 'Responsable Programmes Talents',
+                  context: 'Responsable directe chez AXA France'
+                }
+              ]
+            },
             skills: {
               quote: 'People are the key to sustainable change.',
               capabilities: [
-                { icon: 'scale', title: 'Droit Social & CSE', desc: 'Enquêtes, contentieux & veille réglementaire' },
                 { icon: 'users', title: 'Talent Development', desc: 'Revues de talents, comités & plans de succession' },
-                { icon: 'git-branch', title: 'Project Management', desc: 'Certifiée AgilePM & PRINCE2, pilotage transversal' },
-                { icon: 'sparkles', title: 'Digital Learning', desc: 'Ingénierie ludo-pédagogique & VTS / Storyline' }
+                { icon: 'sparkles', title: 'Digital Learning', desc: 'Ingénierie ludo-pédagogique & VTS / Storyline' },
+                { icon: 'scale', title: 'Droit Social & CSE', desc: 'Enquêtes, contentieux & veille réglementaire' },
+                { icon: 'git-branch', title: 'Project Management', desc: 'Certifiée AgilePM & PRINCE2, pilotage transversal' }
               ]
             },
             life: {
@@ -699,23 +759,23 @@
               intro: 'Bonjour ! Je suis l’assistant virtuel de Jingyi CAO. Que souhaitez-vous découvrir sur son profil ?',
               quickQuestions: 'Questions fréquentes :',
               questions: {
-                law: { text: 'Son expertise en droit du travail ?', answer: 'Jingyi possède une solide expérience terrain : pilotage d\'enquêtes disciplinaires, gestion de prises d\'acte et ruptures conventionnelles avec avocats, consultation du CSE, réorganisation sans licenciement et veille juridique trilingue.' },
-                skills: { text: 'Quelles sont ses compétences clés ?', answer: 'Jingyi combine 4 expertises : le droit du travail français (Employee Relations), la gouvernance des talents (AXA France), le Digital Learning immersif et les People Analytics sous Power BI.' },
+                skills: { text: 'Quelles sont ses compétences clés ?', answer: 'Jingyi combine 4 expertises : la gouvernance des talents (revues de talents chez AXA France), le Digital Learning immersif, le droit du travail français (Relations Sociales) et les People Analytics sous Power BI.' },
                 axa: { text: 'Son impact chez AXA France ?', answer: 'Chez AXA France, Jingyi a préparé la revue annuelle pour ~300 talents et dirigeants, coordonné 80 à 90 nominations, créé le modèle de tableau de bord Power BI utilisé en comité et piloté le programme Leadership (NPS 100).' },
+                law: { text: 'Son expérience en droit social ?', answer: 'Jingyi a mené des enquêtes internes fact-finding avec avocats, sécurisé des prises d’acte et ruptures conventionnelles, accompagné une réorganisation sans licenciement via le CSE et assuré la veille réglementaire.' },
                 languages: { text: 'Quel est son niveau en langues ?', answer: 'Jingyi est parfaitement trilingue : Français (courant, certifié DALF C1), Anglais (professionnel) et Chinois (langue maternelle).' }
               }
             },
             footer: {
               title: 'Construisons ensemble la dynamique RH de demain',
-              desc: 'Disponible immédiatement • Ouverte aux opportunités en Relations Sociales / Droit du Travail, Talent Management & Projets RH.'
+              desc: 'Disponible immédiatement • Ouverte aux opportunités en Talent Management, Cheffe de Projets RH & Relations Sociales.'
             }
           },
           EN: {
-            nav: { about: 'About', impact: 'Impact', projects: 'Projects', skills: 'Expertise', life: 'Life & Passions', contact: 'Contact' },
+            nav: { about: 'About', impact: 'Impact', projects: 'Projects', skills: 'Expertise', testimonials: 'Endorsements', life: 'Life & Passions', contact: 'Contact' },
             hero: {
               titleLine1: 'From people',
               titleLine2: 'to lasting impact',
-              bio: 'Trilingual HR professional combining hands-on French employment law & employee relations expertise with strategic executive talent governance across international matrix organizations.',
+              bio: 'SKEMA graduate with corporate track record at AXA France & Bank of China. Bridging strategy and people to build sustainable, high-performing organizations in a trilingual setting.',
               btnJourney: 'Discover my journey',
               btnContact: 'Contact me'
             },
@@ -724,7 +784,7 @@
               items: [
                 { value: '~300', label: 'Talents & Executives', desc: 'Consolidated annual reviews and growth roadmaps' },
                 { value: '80 - 90', label: 'Nominations / year', desc: 'End-to-end executive committee steering' },
-                { value: '100%', label: 'Legal Compliance', desc: 'ER investigations, dispute settlement & Works Council' },
+                { value: '93%', label: 'Completion Rate', desc: 'Global ethics & ESG module in 22 languages' },
                 { value: 'NPS 100', label: 'Leadership Cohort', desc: 'Pilot program institutionalized across promotions' }
               ]
             },
@@ -738,18 +798,6 @@
               title: 'Explore My 4 Core Strategic Pillars',
               instruction: 'Select a card to discover operational impact',
               cards: [
-                {
-                  icon: 'scale',
-                  title: 'Labor Law & Employee Relations',
-                  subtitle: 'French employment law, compliance & ER investigations',
-                  detailedDesc: 'End-to-end ownership of sensitive ER cases for a 200-employee international bank: led fact-finding investigations with external counsel, successfully resolved prise d\'acte avoiding litigation, managed mutual terminations (ruptures conventionnelles), inaptitude procedures, and supported a 5-to-3 department merger with zero redundancies via Works Council (CSE) consultations.',
-                  points: [
-                    'Led internal fact-finding investigations with external employment counsel',
-                    'Resolved complex prise d’acte and grievance procedures amicably',
-                    'Organized CSE information-consultation meetings for reorganization',
-                    'Labour-law monitoring & internal rules update aligned in FR/EN/ZH'
-                  ]
-                },
                 {
                   icon: 'users',
                   title: 'Talent Governance & Leadership',
@@ -775,6 +823,18 @@
                   ]
                 },
                 {
+                  icon: 'scale',
+                  title: 'Labor Law & Employee Relations',
+                  subtitle: 'French employment law, compliance & ER investigations',
+                  detailedDesc: 'End-to-end ownership of sensitive ER cases for a 200-employee international bank: led fact-finding investigations with external counsel, successfully resolved prise d\'acte avoiding litigation, managed mutual terminations (ruptures conventionnelles), inaptitude procedures, and supported a 5-to-3 department merger with zero redundancies via Works Council (CSE) consultations.',
+                  points: [
+                    'Led internal fact-finding investigations with external employment counsel',
+                    'Resolved complex prise d’acte and grievance procedures amicably',
+                    'Organized CSE information-consultation meetings for reorganization',
+                    'Labour-law monitoring & internal rules update aligned in FR/EN/ZH'
+                  ]
+                },
+                {
                   icon: 'bar-chart-2',
                   title: 'People Analytics & HR Digitalization',
                   subtitle: 'Data modeling & HRIS optimization',
@@ -788,13 +848,35 @@
                 }
               ]
             },
+            testimonials: {
+              tag: 'MANAGEMENT ENDORSEMENTS',
+              title: 'What People Leaders Say',
+              viewAllLinkedIn: 'View all endorsements on LinkedIn',
+              items: [
+                {
+                  quote: '“Jingyi worked on several key projects with exemplary rigor and dedication. She demonstrated great intellectual curiosity and strategic perspective in every mission assigned.”',
+                  authorTitle: 'Senior HR Manager / Labor Law',
+                  context: 'Direct Line Manager @ Bank of China'
+                },
+                {
+                  quote: '“She consistently impressed me with sharp logical thinking. A modern HR professional who goes far beyond execution: an adaptable, sound problem-solver and rare cross-cultural talent.”',
+                  authorTitle: 'HR Director & Talent Acquisition',
+                  context: 'Direct Line Manager • ER & Strategy'
+                },
+                {
+                  quote: '“This collaboration involved projects requiring structured planning, strict deadline tracking and rigorous follow-up. I highly recommend Jingyi for any high-standard HR initiatives.”',
+                  authorTitle: 'Head of Talent Programmes',
+                  context: 'Direct Line Manager @ AXA France'
+                }
+              ]
+            },
             skills: {
               quote: 'People are the key to sustainable change.',
               capabilities: [
-                { icon: 'scale', title: 'Employee Relations', desc: 'Investigations, settlements & Works Council (CSE)' },
                 { icon: 'users', title: 'Talent Development', desc: 'Executive reviews, succession & nominations' },
-                { icon: 'git-branch', title: 'Project Management', desc: 'Certified AgilePM & PRINCE2 practitioner' },
-                { icon: 'sparkles', title: 'Digital Learning', desc: 'Immersive Serious Games & Storyline/VTS' }
+                { icon: 'sparkles', title: 'Digital Learning', desc: 'Immersive Serious Games & Storyline/VTS' },
+                { icon: 'scale', title: 'Employee Relations', desc: 'Investigations, settlements & Works Council (CSE)' },
+                { icon: 'git-branch', title: 'Project Management', desc: 'Certified AgilePM & PRINCE2 practitioner' }
               ]
             },
             life: {
@@ -810,23 +892,23 @@
               intro: 'Hello! I am Jingyi CAO\'s portfolio assistant. What would you like to know about her background?',
               quickQuestions: 'Quick inquiries:',
               questions: {
-                law: { text: 'Her experience in French Labor Law?', answer: 'Jingyi has hands-on ER experience: conducting fact-finding investigations with counsel, settling complex dispute cases (prise d’acte, mutual terminations), CSE consultations, and labor law regulatory monitoring in FR/EN/ZH.' },
-                skills: { text: 'What are her core competencies?', answer: 'Jingyi combines Employee Relations & Labor Law, Talent Governance (executive reviews at AXA France), Digital Learning engineering, and People Analytics with Power BI.' },
+                skills: { text: 'What are her core competencies?', answer: 'Jingyi combines Talent Governance (executive reviews at AXA France), Digital Learning engineering, French Labor Law (ER), and People Analytics with Power BI.' },
                 axa: { text: 'Her contribution at AXA France?', answer: 'At AXA France, Jingyi coordinated annual reviews for ~300 executives, steered 80-90 nomination committees, engineered Power BI talent dashboards, and led the Leadership program (NPS 100).' },
+                law: { text: 'Her ER & Labor Law background?', answer: 'Jingyi handled fact-finding investigations with legal counsel, settled complex disputes (prise d’acte), led CSE consultation procedures, and conducted trilingual legal monitoring.' },
                 languages: { text: 'What are her language proficiencies?', answer: 'Jingyi is fully trilingual: French (Fluent, DALF C1 certified), English (Professional working proficiency), and Mandarin Chinese (Native).' }
               }
             },
             footer: {
               title: 'Let\'s shape the future of Talent & Learning together',
-              desc: 'Available immediately • Open to opportunities in Employee Relations, French Labor Law & Talent Management.'
+              desc: 'Available immediately • Open to opportunities in Talent Management, HR Projects & Employee Relations.'
             }
           },
           ZH: {
-            nav: { about: '关于我', impact: '成果数据', projects: '代表作品', skills: '能力档案', life: '生活切片', contact: '联系我' },
+            nav: { about: '关于我', impact: '成果数据', projects: '代表作品', skills: '能力档案', testimonials: '导师背书', life: '生活切片', contact: '联系我' },
             hero: {
               titleLine1: '以人为本',
               titleLine2: '创造持久的组织影响力',
-              bio: '三语 HR 专业背景，兼具法国劳动法实操（员工关系 ER、劳动争议调查、规章合规与 CSE 沟通）与跨国集团高管人才发展治理经验，以跨文化视角与严谨法律思维为业务决策保驾护航。',
+              bio: '毕业于 SKEMA 商学院，拥有法国安盛 (AXA France) 与中国银行巴黎分行管理经验。深耕高管人才盘点、数字化学习工程与敏捷项目管理，以三语优势与数据洞察赋能组织成长。',
               btnJourney: '探索我的成长轨迹',
               btnContact: '联系我'
             },
@@ -835,7 +917,7 @@
               items: [
                 { value: '~300', label: '高潜与高管盘点', desc: '整合多方信息打造全集团单一数据源' },
                 { value: '80 - 90', label: '年度晋升提名', desc: '高压严控节点下统筹委员会全流程' },
-                { value: '100%', label: '劳动合规与风控', desc: '主导劳动事实调查、法律合规与 CSE 咨询' },
+                { value: '93%', label: '培训完成率', desc: '开云集团全球 22 种语言合规培训' },
                 { value: 'NPS 100', label: '领导力发展计划', desc: '学员满分满意度，项目成功常态化' }
               ]
             },
@@ -849,18 +931,6 @@
               title: '探索我的四大核心能力基石',
               instruction: '点击左侧卡牌，抽取并查看实际大厂落地成果',
               cards: [
-                {
-                  icon: 'scale',
-                  title: '法国劳动法合规与员工关系 (ER)',
-                  subtitle: '事实调查、争议解决、CSE 与法规动态监控',
-                  detailedDesc: '在 200 人的跨国银行分行独立负责敏感员工关系与劳动法实务：与劳工律师协同主导多起内部事实调查（fact-finding），妥善和解 prise d\'acte 争议避免诉讼；处理协议解除（rupture conventionnelle）、不适任认定（inaptitude）及 5 部门重组无裁员方案（统筹 CSE 咨询全流程）。负责中英法三语劳动法规监控与员工手册修订。',
-                  points: [
-                    '独立统筹内部事实调查、纪律警告与重大争议化解',
-                    '负责企业社会与经济委员会 (CSE) 信息咨询程序组织',
-                    '持续开展法国劳动法动态追踪与全套人事制度规范化',
-                    '测算职场性别平等指数并落地银行业监管合规背景调查'
-                  ]
-                },
                 {
                   icon: 'users',
                   title: '战略性高管人才盘点与领导力',
@@ -886,6 +956,18 @@
                   ]
                 },
                 {
+                  icon: 'scale',
+                  title: '法国劳动法合规与员工关系 (ER)',
+                  subtitle: '事实调查、争议解决、CSE 与法规动态监控',
+                  detailedDesc: '在 200 人的跨国银行分行独立负责敏感员工关系与劳动法实务：与劳工律师协同主导多起内部事实调查（fact-finding），妥善和解 prise d\'acte 争议避免诉讼；处理协议解除（rupture conventionnelle）、不适任认定（inaptitude）及 5 部门重组无裁员方案（统筹 CSE 咨询全流程）。负责中英法三语劳动法规监控与员工手册修订。',
+                  points: [
+                    '独立统筹内部事实调查、纪律警告与重大争议化解',
+                    '负责企业社会与经济委员会 (CSE) 信息咨询程序组织',
+                    '持续开展法国劳动法动态追踪与全套人事制度规范化',
+                    '测算职场性别平等指数并落地银行业监管合规背景调查'
+                  ]
+                },
+                {
                   icon: 'bar-chart-2',
                   title: 'HR 数据分析建模与流程数字化',
                   subtitle: 'Power BI 决策看板与 SIRH 流程',
@@ -899,13 +981,35 @@
                 }
               ]
             },
+            testimonials: {
+              tag: '直接领导与导师评价',
+              title: '来自跨国大厂主管的真实推荐',
+              viewAllLinkedIn: '前往 LinkedIn 查看全部推荐信全文',
+              items: [
+                {
+                  quote: '“Jingyi 在多项核心项目中展现了堪称典范的严谨与专业度。她兼具敏锐的求知欲与大局观，总能从战略高度审视被交付的每一项任务。”',
+                  authorTitle: '高级 HR 经理 / 法国劳动法专精',
+                  context: '中国银行巴黎分行 • 直接主管'
+                },
+                {
+                  quote: '“她严谨的逻辑与沟通能力让人印象深刻。Jingyi 远超传统执行者角色，是极具问题解决力的现代 HR 典范，更是不可多得的跨文化人才。”',
+                  authorTitle: 'HR 总监 / 招聘与组织发展负责人',
+                  context: '直接主管 • 员工关系与战略人才'
+                },
+                {
+                  quote: '“在需要严谨组织、严格把握时间节点并深度统筹的多方项目中，Jingyi 的表现无可挑剔。我极力推荐她参与任何高标准要求的关键项目。”',
+                  authorTitle: '安盛高管人才发展项目负责人',
+                  context: 'AXA France • 直接主管'
+                }
+              ]
+            },
             skills: {
               quote: '人，是一切可持续变革的基石。',
               capabilities: [
-                { icon: 'scale', title: '法国劳动法与员工关系', desc: '争议化解、事实调查与 CSE 劳资沟通' },
                 { icon: 'users', title: '高管人才盘点治理', desc: '300名高管梯队规划与晋升委员会' },
-                { icon: 'git-branch', title: '敏捷项目管理', desc: '持有 PRINCE2 与 AgilePM 专业认证' },
-                { icon: 'sparkles', title: '数字化学习工程', desc: '严肃游戏沉浸设计与 VTS / Storyline' }
+                { icon: 'sparkles', title: '数字化学习工程', desc: '严肃游戏沉浸设计与 VTS / Storyline' },
+                { icon: 'scale', title: '法国劳动法与员工关系', desc: '争议化解、事实调查与 CSE 劳资沟通' },
+                { icon: 'git-branch', title: '敏捷项目管理', desc: '持有 PRINCE2 与 AgilePM 专业认证' }
               ]
             },
             life: {
@@ -921,20 +1025,19 @@
               intro: '你好！我是静仪作品集的专属 AI 助手。想了解关于静仪的哪些经历？',
               quickQuestions: '快捷提问：',
               questions: {
-                law: { text: '静仪在法国劳动法领域的实战经验？', answer: '静仪在 200 人的跨国银行独立负责员工关系：主导事实调查、协同律师妥善和解 prise d’acte 避免诉讼、合规办理协议离职、推进无裁员重组与 CSE 咨询，并主持中英法三语劳动规章修订。' },
-                skills: { text: '静仪的核心专长是什么？', answer: '静仪具备极为稀缺的“法律+人才+数字化”复合背景：法国劳动法与员工关系实务、安盛法国高管人才盘点、数字化学习工程（VTS / Storyline）以及 Power BI 数据建模。' },
+                skills: { text: '静仪的核心专长是什么？', answer: '静仪兼具三大核心优势：安盛法国高管人才盘点与委员会治理、开云集团数字化严肃游戏设计（VTS / Storyline），以及基于 Power BI 的人力数据建模。' },
                 axa: { text: '她在安盛法国做出了哪些成果？', answer: '在 AXA France 期间，静仪统筹约 300 名高管盘点、负责 80-90 项年度晋升提名，搭建了全团队通用的 Power BI 盘点看板，并让领导力项目取得 100 分满分 NPS。' },
+                law: { text: '她处理敏感劳动争议的经验？', answer: '静仪在跨国银行分行独立主导事实调查、协同律师妥善和解 prise d’acte 避免诉讼、主导 CSE 咨询完成无裁员重组，并主持中英法三语劳动规章修订。' },
                 languages: { text: '她的语言能力如何？', answer: '静仪具备极为出色的三语流利度：法语（精通，持有 DALF C1 认证）、英语（专业工作水平）以及中文（母语）。' }
               }
             },
             footer: {
               title: '期待与你共同打造更具生命力的人才生态',
-              desc: '随时可到岗 • 欢迎交流关于员工关系（ER）、法国劳动法合规、高管人才管理与 HR 项目管理的合作机会。'
+              desc: '随时可到岗 • 欢迎交流关于 Talent Management、数字化学习设计与 HR 组织发展的合作机会。'
             }
           }
         };
 
-        // 项目数据列表：完全对应你的真实素材文件
         const projectsData = [
           {
             title: "Un croissant s'il vous plaît",
