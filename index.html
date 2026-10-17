@@ -47,15 +47,32 @@
     .card-clean {
       background-color: #FFFFFF;
       border: 1px solid rgba(64, 50, 61, 0.08);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .card-clean:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px -15px rgba(64, 50, 61, 0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -12px rgba(64, 50, 61, 0.12);
       border-color: rgba(167, 111, 112, 0.35);
     }
 
-    /* 抽卡互动 3D 动画与堆叠层级 */
+    /* 类似 Minimal Gallery 的滚动分幕淡入动效 (Reveal-on-scroll) */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-item.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 错峰延迟 */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    /* 抽卡互动 3D 动画 */
     .deck-card {
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
@@ -66,15 +83,6 @@
       box-shadow: 0 16px 32px -8px rgba(64, 50, 61, 0.2);
     }
 
-    /* 平滑呼吸光泽 */
-    @keyframes pulse-subtle {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.85; transform: scale(1.03); }
-    }
-    .animate-subtle {
-      animation: pulse-subtle 3s ease-in-out infinite;
-    }
-
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
@@ -83,6 +91,9 @@
 <body class="selection:bg-brand-rosewood selection:text-white font-sans antialiased relative min-h-screen">
   <div id="app" class="relative">
     
+    <!-- 顶部极细阅读进度条 -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-brand-gold z-[60] transition-all duration-75 w-0"></div>
+
     <!-- 顶部导航栏 -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#F7F3F0]/90 backdrop-blur-md border-b border-brand-aubergine/5 px-6 sm:px-12 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-3">
@@ -113,11 +124,11 @@
       </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 sm:px-8 pt-32 pb-28 space-y-28">
+    <main class="max-w-6xl mx-auto px-6 sm:px-8 pt-32 pb-28 space-y-36">
 
-      <!-- HERO 区域 -->
-      <section id="about" class="pt-4">
-        <div class="bg-brand-aubergine text-brand-ivory rounded-[32px] p-8 sm:p-14 relative overflow-hidden shadow-xl shadow-brand-aubergine/10">
+      <!-- HERO 区域 (Section 1) -->
+      <section id="about" class="pt-4 reveal-item">
+        <div class="bg-brand-aubergine text-brand-ivory rounded-[32px] p-8 sm:p-14 relative overflow-hidden shadow-2xl shadow-brand-aubergine/10">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
             <div class="lg:col-span-7 space-y-7">
               <div class="w-12 h-[2px] bg-brand-gold"></div>
@@ -147,19 +158,19 @@
               </div>
             </div>
 
-            <!-- 右侧肖像 -->
-           <div class="lg:col-span-5 flex justify-center">
-  <div class="relative w-full max-w-xs sm:max-w-sm rounded-[28px] overflow-hidden bg-white/5 p-3 border border-white/10 shadow-2xl backdrop-blur-sm">
-    <div class="w-full h-80 sm:h-88 rounded-[20px] overflow-hidden bg-brand-mauve/30 flex items-center justify-center relative group p-6">
-      <img 
-        src="avatar.jpg" 
-        alt="Jingyi CAO" 
-        class="w-full h-full object-contain drop-shadow-xl transition duration-700 group-hover:scale-105" 
-        onerror="this.src='./images/avatar.jpg'" 
-      />
-    </div>
-  </div>
-</div>
+            <!-- 右侧肖像 (缩小并透出优雅背景留白) -->
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="relative w-full max-w-xs sm:max-w-sm rounded-[28px] overflow-hidden bg-white/5 p-3 border border-white/10 shadow-2xl backdrop-blur-sm">
+                <div class="w-full h-80 sm:h-88 rounded-[20px] overflow-hidden bg-brand-mauve/30 flex items-center justify-center relative group p-6">
+                  <img 
+                    src="avatar.jpg" 
+                    alt="Jingyi CAO" 
+                    class="w-full h-full object-contain drop-shadow-xl transition duration-700 group-hover:scale-105" 
+                    onerror="this.src='./images/avatar.jpg'" 
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="absolute -bottom-10 -right-10 text-[180px] font-serif font-bold text-white/[0.02] select-none pointer-events-none">
@@ -168,8 +179,8 @@
         </div>
       </section>
 
-      <!-- 核心成果数据 (Metrics) -->
-      <section id="metrics" class="space-y-6">
+      <!-- 核心成果数据 (Section 2 - 分幕滑动渐现) -->
+      <section id="metrics" class="space-y-6 reveal-item">
         <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
           <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.metrics.tag }}</p>
           <span class="text-xs text-brand-mauve font-serif italic">Measurable Impact</span>
@@ -186,8 +197,8 @@
         </div>
       </section>
 
-      <!-- 代表作品 (Projects) -->
-      <section id="projects" class="space-y-8">
+      <!-- 代表作品 (Section 3 - 分幕滑动渐现) -->
+      <section id="projects" class="space-y-8 reveal-item">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-brand-aubergine/10 pb-3">
           <div>
             <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.projects.tag }}</p>
@@ -220,7 +231,6 @@
                   {{ proj.category }}
                 </span>
                 
-                <!-- 视频与媒体角标 -->
                 <div class="absolute bottom-3 right-3 flex items-center space-x-1.5">
                   <span v-if="proj.videoUrl" class="px-2 py-0.5 rounded-md bg-brand-aubergine/80 text-brand-gold backdrop-blur-sm text-[10px] font-semibold flex items-center space-x-1">
                     <i data-lucide="play" class="w-3 h-3 fill-current"></i>
@@ -248,8 +258,8 @@
         </div>
       </section>
 
-      <!-- 阶段 3 核心亮点：互动式能力抽卡档案 (Interactive Skill Deck - 还原视频精髓) -->
-      <section id="deck" class="space-y-6">
+      <!-- 动态能力抽卡档案 (Section 4 - 分幕滑动渐现) -->
+      <section id="deck" class="space-y-6 reveal-item">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-brand-aubergine/10 pb-3">
           <div>
             <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.deck.tag }}</p>
@@ -259,8 +269,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          <!-- 左侧：3 张可抽取的立体档案卡片 -->
+          <!-- 左侧抽卡牌堆 -->
           <div class="lg:col-span-5 space-y-3">
             <div 
               v-for="(card, idx) in t.deck.cards" 
@@ -287,7 +296,7 @@
             </div>
           </div>
 
-          <!-- 右侧：抽出卡片的深度能力解析面板 -->
+          <!-- 右侧卡牌解析 -->
           <div class="lg:col-span-7 bg-white rounded-[28px] p-8 border border-brand-aubergine/10 shadow-lg shadow-brand-aubergine/5 space-y-6">
             <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-4">
               <div>
@@ -315,12 +324,11 @@
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- 核心能力理念卡片 (金句 + 4基石) -->
-      <section id="skills" class="space-y-6">
+      <!-- 核心能力理念卡片 (Section 5 - 分幕滑动渐现) -->
+      <section id="skills" class="space-y-6 reveal-item">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           <div class="lg:col-span-5 bg-brand-mist/30 border border-brand-aubergine/10 rounded-[24px] p-8 flex flex-col justify-between space-y-6">
             <span class="text-3xl font-serif text-brand-rosewood leading-none">“</span>
@@ -342,8 +350,8 @@
         </div>
       </section>
 
-      <!-- 工作之外的生活 (Life Beyond Work) -->
-      <section id="life" class="space-y-6">
+      <!-- 工作之外的生活 (Section 6 - 分幕滑动渐现) -->
+      <section id="life" class="space-y-6 reveal-item">
         <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
           <p class="text-xs uppercase tracking-widest text-brand-aubergine font-bold">{{ t.life.tag }}</p>
           <span class="text-xs text-brand-mauve font-serif italic">Energy & Discipline</span>
@@ -368,7 +376,7 @@
       </section>
 
       <!-- 底部 Footer -->
-      <footer class="pt-12 border-t border-brand-aubergine/10 text-center space-y-6">
+      <footer class="pt-12 border-t border-brand-aubergine/10 text-center space-y-6 reveal-item">
         <div class="space-y-2 max-w-md mx-auto">
           <h3 class="font-serif text-2xl text-brand-aubergine font-semibold">{{ t.footer.title }}</h3>
           <p class="text-xs text-brand-espresso/70 font-light leading-relaxed">{{ t.footer.desc }}</p>
@@ -388,9 +396,8 @@
 
     </main>
 
-    <!-- 阶段 3 互动特色：智能面试助手悬浮球 (Interactive AI Assistant Bubble) -->
+    <!-- 智能面试助手悬浮球 -->
     <div class="fixed bottom-6 right-6 z-50">
-      <!-- 气泡弹出窗体 -->
       <div v-if="isAiOpen" class="mb-3 w-80 sm:w-96 bg-white rounded-[24px] p-5 border border-brand-aubergine/10 shadow-2xl space-y-4 animate-in fade-in zoom-in duration-200">
         <div class="flex items-center justify-between border-b border-brand-aubergine/10 pb-3">
           <div class="flex items-center space-x-2">
@@ -405,7 +412,6 @@
           <button @click="isAiOpen = false" class="text-brand-mauve hover:text-brand-aubergine text-xs p-1">✕</button>
         </div>
 
-        <!-- 对话内容展示 -->
         <div class="h-44 overflow-y-auto no-scrollbar space-y-3 text-xs pr-1">
           <div class="p-3 rounded-2xl bg-brand-ivory text-brand-espresso/80 leading-relaxed font-light">
             {{ t.ai.intro }}
@@ -415,7 +421,6 @@
           </div>
         </div>
 
-        <!-- 预设快捷提问按钮 -->
         <div class="space-y-1.5 pt-1 border-t border-brand-aubergine/5">
           <p class="text-[10px] font-bold text-brand-mauve uppercase tracking-wider">{{ t.ai.quickQuestions }}</p>
           <div class="flex flex-col gap-1.5">
@@ -431,7 +436,6 @@
         </div>
       </div>
 
-      <!-- 悬浮唤醒圆形按钮 -->
       <button 
         @click="isAiOpen = !isAiOpen"
         class="w-13 h-13 px-4 py-3.5 rounded-full bg-brand-aubergine text-white hover:bg-brand-rosewood transition shadow-xl flex items-center space-x-2.5 hover:scale-105 active:scale-95 duration-200"
@@ -441,14 +445,13 @@
       </button>
     </div>
 
-    <!-- 项目多媒体综合弹窗 -->
+    <!-- 项目全能弹窗 -->
     <div v-if="modalData" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-aubergine/65 backdrop-blur-sm" @click.self="closeModal">
       <div class="bg-white rounded-[28px] max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative border border-brand-aubergine/10 max-h-[92vh] overflow-y-auto no-scrollbar">
         <button @click="closeModal" class="absolute top-5 right-5 text-brand-mauve hover:text-brand-aubergine text-sm p-1 z-30">
           ✕
         </button>
 
-        <!-- 顶部媒体切换器 -->
         <div v-if="modalData.videoUrl && modalData.images && modalData.images.length > 0" class="flex items-center space-x-2 bg-brand-mist/30 p-1 rounded-full w-max text-xs">
           <button 
             @click="mediaTab = 'video'" 
@@ -468,9 +471,7 @@
           </button>
         </div>
 
-        <!-- 媒体展示区 -->
         <div class="space-y-3">
-          <!-- 视频播放模式 -->
           <div v-if="mediaTab === 'video' && modalData.videoUrl" class="rounded-[20px] overflow-hidden bg-black aspect-video relative shadow-inner">
             <video 
               controls 
@@ -484,13 +485,11 @@
             </video>
           </div>
 
-          <!-- 图片画廊模式 -->
           <div v-else class="space-y-3">
             <div class="h-64 sm:h-72 rounded-[20px] overflow-hidden bg-brand-mist/30 flex items-center justify-center border border-brand-aubergine/5">
               <img :src="currentSelectedImage || modalData.cover" class="w-full h-full object-contain" @error="handleImgFallback" />
             </div>
 
-            <!-- 多图缩略图切换行 -->
             <div v-if="modalData.images && modalData.images.length > 1" class="flex items-center space-x-2 overflow-x-auto py-1 no-scrollbar">
               <button 
                 v-for="(img, idx) in modalData.images" 
@@ -505,7 +504,6 @@
           </div>
         </div>
 
-        <!-- 标题与说明 -->
         <div class="space-y-2">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="text-[10px] font-bold text-brand-rosewood uppercase tracking-wider">{{ modalData.category }}</span>
@@ -525,7 +523,6 @@
           <p class="text-xs text-brand-espresso/80 font-light leading-relaxed">{{ modalData.fullDesc }}</p>
         </div>
 
-        <!-- 关键亮点 -->
         <div class="space-y-2 pt-2 border-t border-brand-aubergine/10">
           <h4 class="text-[11px] uppercase tracking-wider text-brand-mauve font-bold">Key Highlights & Competencies</h4>
           <ul class="space-y-1.5 text-xs text-brand-espresso/80 font-light">
@@ -610,7 +607,7 @@
                   icon: 'sparkles',
                   title: 'Digital Learning & Serious Games',
                   subtitle: 'Ingénierie ludo-pédagogique & outils auteurs',
-                  detailedDesc: 'Double compétence rare alliant conception pédagogique rigoureuse (GDD, synopsis) et direction artistique 2D. Capacité à modéliser des environnements immersifs pour des groupes internationaux (Kering) et des publics en intégration.',
+                  detailedDesc: 'Double compétence alliant conception pédagogique rigoureuse (GDD, synopsis) et direction artistique 2D. Modélisation d’environnements immersifs pour des groupes internationaux (Kering) et des publics en intégration.',
                   points: [
                     'Maîtrise avancée des outils auteurs : VTS Editor & Articulate Storyline',
                     'Scénarisation de formations conformité déployées en 22 langues (93% complétion)',
@@ -708,7 +705,7 @@
                   icon: 'sparkles',
                   title: 'Digital Learning & Serious Games',
                   subtitle: 'Instructional design & immersive authoring tools',
-                  detailedDesc: 'Rare dual capability combining instructional rigor (GDD, pedagogical scenarios) with original 2D art direction. Designing gamified experiences for multinational brands (Kering) and newcomers.',
+                  detailedDesc: 'Dual capability combining instructional rigor (GDD, pedagogical scenarios) with original 2D art direction. Designing gamified experiences for multinational brands (Kering) and newcomers.',
                   points: [
                     'Advanced mastery of VTS Editor & Articulate Storyline',
                     'Compliance modules rolled out in 22 languages (93% completion)',
@@ -868,15 +865,15 @@
             category: "Digital Learning",
             summary: "Jeu sérieux d'intégration culturelle et professionnelle en France pour jeunes adultes.",
             fullDesc: "Conception complète du synopsis, Game Design Document (GDD), univers graphique original (personnages, carte) et scénarisation vidéo. Vous pouvez explorer la vidéo de démo, les 5 planches graphiques ou télécharger le GDD complet ci-dessus.",
-            cover: "croissant-poster.jpg",
-            videoUrl: "croissant-video.mp4",
-            pdfUrl: "croissant-design.pdf",
+            cover: "./images/croissant-poster.jpg",
+            videoUrl: "./images/croissant-video.mp4",
+            pdfUrl: "./images/croissant-design.pdf",
             images: [
-              "croissant-1.jpg",
-              "croissant-2.jpg",
-              "croissant-3.jpg",
-              "croissant-4.jpg",
-              "croissant-5.jpg"
+              "./images/croissant-1.jpg",
+              "./images/croissant-2.jpg",
+              "./images/croissant-3.jpg",
+              "./images/croissant-4.jpg",
+              "./images/croissant-5.jpg"
             ],
             highlights: [
               "Scénarisation pédagogique complète et rédaction du GDD",
@@ -889,8 +886,8 @@
             category: "Digital Learning",
             summary: "Vidéo d'enquête de terrain et montage sur l'attractivité des langues étrangères auprès des étudiants.",
             fullDesc: "Projet mené en équipe (Groupe JOJINGAU) : conception des questions d'enquête, réalisation d'interviews micro-trottoir sur le campus, montage dynamique et post-production.",
-            cover: "interview-poster.png",
-            videoUrl: "interview-video.mp4",
+            cover: "./images/interview-poster.png",
+            videoUrl: "./images/interview-video.mp4",
             highlights: [
               "Gestion de projet audiovisuel de bout en bout",
               "Interviews qualitatives de terrain et recueil de données linguistiques",
@@ -902,10 +899,10 @@
             category: "Design & Events",
             summary: "Conception graphique originale et animation d'ateliers d'immersion culturelle (Calligraphie & Mahjong).",
             fullDesc: "Organisation complète et création de l'identité visuelle pour deux ateliers culturels immersifs : « Danse de l'Encre » (Initiation à la calligraphie chinoise) et « Mahjong & Mandarin » (Soirée ludique et linguistique).",
-            cover: "poster-1.jpg",
+            cover: "./images/poster-1.jpg",
             images: [
-              "poster-1.jpg",
-              "poster-2.jpg"
+              "./images/poster-1.jpg",
+              "./images/poster-2.jpg"
             ],
             highlights: [
               "Direction artistique et conception d'affiches sous Canva / Suite créative",
@@ -918,7 +915,7 @@
             category: "Digital Learning",
             summary: "Formation gamifiée sur l'éthique, les droits humains et la durabilité (ESG) pour un leader du luxe.",
             fullDesc: "Intégration de contenus pédagogiques complexes et scénarisation d'une expérience immersive sur la transition durable déployée auprès de collaborateurs du monde entier.",
-            cover: "kering.jpg",
+            cover: "./images/kering.jpg",
             highlights: [
               "Déploiement international en 22 langues",
               "Taux de complétion record de 93%",
@@ -930,10 +927,10 @@
             category: "Digital Learning",
             summary: "Serious Game interactif d'initiation au système bancaire français.",
             fullDesc: "Mise en situation réaliste guidant l'apprenant à travers la préparation des pièces justificatives, la prise de rendez-vous et le premier retrait bancaire.",
-            cover: "banking-1.jpg",
+            cover: "./images/banking-1.jpg",
             images: [
-              "banking-1.jpg",
-              "banking-2.jpg"
+              "./images/banking-1.jpg",
+              "./images/banking-2.jpg"
             ],
             highlights: [
               "Scénarios interactifs branchés à choix multiples",
@@ -946,10 +943,10 @@
             category: "Digital Learning",
             summary: "Digitalisation et scénarisation des compétences métiers en restauration.",
             fullDesc: "Création de modules immersifs pour la certification des crêpiers, commis de cuisine, pizzaïolos et réceptionnistes via des évaluations en situation 3D.",
-            cover: "certidev-1.jpg",
+            cover: "./images/certidev-1.jpg",
             images: [
-              "certidev-1.jpg",
-              "certidev-2.jpg"
+              "./images/certidev-1.jpg",
+              "./images/certidev-2.jpg"
             ],
             highlights: [
               "Mises en situation d'hygiène et sécurité alimentaire en cuisine",
@@ -962,7 +959,7 @@
             category: "Talent & Data",
             summary: "Modèle décisionnel pour les revues annuelles de talents et cadres dirigeants.",
             fullDesc: "Consolidation d'une base unique pour ~300 hauts potentiels, intégrant analyse de mixité prédictive, besoins de formation et plans de succession.",
-            cover: "revue.jpg",
+            cover: "./images/revue.jpg",
             highlights: [
               "Adoption par l'ensemble de l'équipe Talents et utilisation en Comex",
               "Modélisation Power Query avancée pour fiabiliser les flux de données",
@@ -1002,6 +999,33 @@
 
         onMounted(() => {
           lucide.createIcons();
+
+          // 核心机制：Intersection Observer 监听每一个 Section 的出现，触发流畅淡入上浮
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+              }
+            });
+          }, {
+            threshold: 0.12, // 滚动进入 12% 时触发
+            rootMargin: '0px 0px -40px 0px'
+          });
+
+          document.querySelectorAll('.reveal-item').forEach((el) => {
+            observer.observe(el);
+          });
+
+          // 顶部滚动细进度条联动
+          window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressEl = document.getElementById('scroll-progress');
+            if (progressEl) {
+              progressEl.style.width = scrolled + '%';
+            }
+          });
         });
 
         return {
